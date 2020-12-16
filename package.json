@@ -24,7 +24,9 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "dist:pi": "electron-builder --armv7l --linux deb",
+    "dist:pi:64": "electron-builder --arm64 --linux deb",
     "pack:pi": "electron-builder --dir --armv7l --linux deb",
+    "pack:pi:64": "electron-builder --dir --arm64 --linux deb",
     "lint": "tslint 'src/**/*.{ts,tsx,js}'",
     "lint:fix": "npm run lint -- --fix"
   },
