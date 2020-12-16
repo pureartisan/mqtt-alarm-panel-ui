@@ -13,7 +13,6 @@ Window {
     RoundButton {
         id: addAlarmButton
         text: "+"
-        anchors.bottom: 0
         anchors.bottomMargin: 8
         anchors.horizontalCenter: parent.horizontalCenter
     }
