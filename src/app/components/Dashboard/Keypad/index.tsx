@@ -45,9 +45,9 @@ class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
             <div className="key" onClick={() => this.handleKeyClicked(9)}>9</div>
           </div>
           <div className="row">
-            <div className="key" onClick={this.handleClearClicked}>clear</div>
+            <div className="key clear-button" onClick={this.handleClearClicked}>clear</div>
             <div className="key" onClick={() => this.handleKeyClicked(0)}>0</div>
-            <div className="key" onClick={this.handleDoneClicked}>done</div>
+            <div className="key done-button" onClick={this.handleDoneClicked}>done</div>
           </div>
         </div>
       </div>

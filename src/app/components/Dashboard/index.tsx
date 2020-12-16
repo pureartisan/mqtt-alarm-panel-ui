@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
 
-import { Keypad } from './Keypad';
+import { ArmScreen } from './ArmScreen';
+import { DisarmScreen } from './DisarmScreen';
 
 import './style.scss';
 
@@ -21,14 +22,18 @@ class DashboardComponent extends React.Component<DashboardProps> {
           'armed': this.props.armed
         })}
       >
-        <Keypad />
+        {this.props.armed ? (
+          <DisarmScreen />
+        ) : (
+          <ArmScreen />
+        )}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<DashboardProps>): Partial<DashboardProps> => ({
-  armed: false // TODO get from stage
+  armed: true // TODO get from stage
 });
 
 export const Dashboard = connect(mapStateToProps)(DashboardComponent);
