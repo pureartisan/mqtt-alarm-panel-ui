@@ -18,8 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     this->startClock();
 
     QRect rec = QApplication::screens().first()->geometry();
-    qDebug() << "Width" + QString(rec.width());
-    qDebug() << "Height" + QString(rec.height());
+    qDebug() << "Screen";
+    qDebug() << rec;
 }
 
 MainWindow::~MainWindow()
