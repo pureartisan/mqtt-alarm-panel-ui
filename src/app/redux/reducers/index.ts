@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 
-import { skills } from './skills';
+import { time } from './time';
+import { standBy } from './stand-by';
 
 export const rootReducer = combineReducers({
-  skills
+  time,
+  standBy
 });
 
 export type ReduxState = ReturnType<typeof rootReducer>;

@@ -1,15 +1,13 @@
-.MainClock {
-  .Clock {
+.DateTime {
+  .Date {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 
     font-family: 'Share Tech Mono', monospace;
-    font-size: 13em;
+    font-size: 4em;
     letter-spacing: 0.05em;
-    // font-size: 80px;
-    // padding: 5px 0;
     color: #daf6ff;
     text-shadow: 0 0 20px rgba(10, 175, 230, 1),  0 0 20px rgba(10, 175, 230, 0);
 
@@ -17,16 +15,16 @@
       color: #000000;
     }
 
-    .hours {
+    .day {
       &::after {
-        content: ':'
+        content: ',\00a0'
       }
     }
 
-    .seconds {
-      position: absolute;
-      font-size: 5rem;
-      margin-top: 1.5rem;
+    .month {
+      &::before {
+        content: '\00a0'
+      }
     }
   }
 }

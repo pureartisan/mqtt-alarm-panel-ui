@@ -1,33 +1,41 @@
 import React from 'react';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
 
-import { MainClock } from './MainClock';
+import { ReduxState } from '@app/redux/reducers';
+
+import { StandByService } from '@app/services/stand-by';
+
+import { DateTime } from './DateTime';
 
 import './style.scss';
 
 interface StandByScreenProps {
-  listening?: boolean;
-  onClick?: () => void
+  armed?: boolean;
 }
 
-class StandByScreen extends React.Component<StandByScreenProps> {
-
-  props: StandByScreenProps = {};
+class StandByScreenComponent extends React.Component<StandByScreenProps> {
 
   render() {
     return (
       <div
         className={classnames("StandByScreen", {
-          'listening': this.props.listening
+          'armed': this.props.armed
         })}
-        onClick={this.props.onClick}
+        onClick={this.handleStandByClick}
       >
-        <MainClock
-          mode={this.props.listening ? 'dark' : 'light'}
-        />
+        <DateTime />
       </div>
     );
   }
+
+  private handleStandByClick = () => {
+    StandByService.disableStandBy();
+  };
 }
 
-export { StandByScreen };
+const mapStateToProps = (state: ReduxState, ownProps: Partial<StandByScreenProps>): Partial<StandByScreenProps> => ({
+  armed: false // TODO get from stage
+});
+
+export const StandByScreen = connect(mapStateToProps)(StandByScreenComponent);

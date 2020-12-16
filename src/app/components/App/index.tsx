@@ -1,27 +1,48 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+import { ReduxState } from '@app/redux/reducers';
+
+import { StandByService } from '@app/services/stand-by';
+
+import { Dashboard } from '@app/components/Dashboard';
 import { StandByScreen } from '@app/components/StandByScreen';
 
-interface AppState {
-  standBy?: boolean;
+interface AppProps {
+  standBy?: boolean
 }
 
-class App extends React.Component<{}, AppState> {
+interface AppState {}
+
+class AppComponent extends React.Component<AppProps, AppState> {
 
   state: AppState = {
-    standBy: true
+    standBy: false
   };
+
+  componentDidMount() {
+    StandByService.listenToUserInteractions();
+  }
+
+  componentWillUnmount() {
+    StandByService.stopListeningToUserInteractions();
+  }
 
   render() {
     return (
       <div className="App">
-        {this.state.standBy && (
+        {this.props.standBy ? (
           <StandByScreen />
+        ) : (
+          <Dashboard />
         )}
       </div>
     );
   }
-
 }
 
-export { App };
+const mapStateToProps = (state: ReduxState, ownProps: Partial<AppProps>): Partial<AppProps> => ({
+  standBy: state.standBy.active
+});
+
+export const App = connect(mapStateToProps)(AppComponent);

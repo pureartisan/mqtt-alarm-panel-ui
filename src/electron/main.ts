@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 
@@ -6,16 +6,14 @@ import { IS_PI } from '@electron/utils/device';
 
 let mainWindow: Electron.BrowserWindow | null;
 
-const WINDOW_WIDTH = 1024;
-const WINDOW_HEIGHT = 600;
-
 const DEV_MODE = process.env.NODE_ENV === 'development';
 
 function createWindow() {
 
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   mainWindow = new BrowserWindow({
-    width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT,
+    width,
+    height,
     show: false, // hide by default (until we are ready)
     webPreferences: {
       nodeIntegration: true,

@@ -1,14 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { ReduxState } from '@app/redux/reducers';
 
 import { padZero } from '@app/utils/strings';
 
 import './style.scss';
 
-type ClockColorMode = 'dark' | 'light';
+type ColorMode = 'dark' | 'light';
 
 interface ClockProps {
-  date: Date
-  mode?: ClockColorMode
+  date?: Date
+  mode?: ColorMode
 }
 
 interface ClockState {
@@ -18,7 +21,7 @@ interface ClockState {
   seconds?: string
 }
 
-class Clock extends React.Component<ClockProps, ClockState> {
+class ClockComponent extends React.Component<ClockProps, ClockState> {
 
   static defaultProps: ClockProps = {
     mode: 'light',
@@ -51,7 +54,7 @@ class Clock extends React.Component<ClockProps, ClockState> {
     );
   }
 
-  private calculateTimeParts(now: Date): void {
+  private calculateTimeParts(now: Date = new Date()): void {
     const hours = now.getHours();
     const mins = now.getMinutes();
     const seconds = now.getSeconds();
@@ -63,4 +66,8 @@ class Clock extends React.Component<ClockProps, ClockState> {
   }
 }
 
-export { Clock };
+const mapStateToProps = (state: ReduxState, ownProps: Partial<ClockProps>): Partial<ClockProps> => ({
+  date: state.time.now
+});
+
+export const Clock = connect(mapStateToProps)(ClockComponent);

@@ -1,10 +1,10 @@
 import { ipcRenderer } from 'electron';
 
-import { MycroftMessageBus } from '@app/services/mycroft-message-bus';
+import { TimeService } from '@app/services/time';
 
 class AppInitialiser {
   init () {
-    MycroftMessageBus.init();
+    TimeService.init();
 
 
     // TESTING
