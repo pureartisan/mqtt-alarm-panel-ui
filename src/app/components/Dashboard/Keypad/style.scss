@@ -1,0 +1,63 @@
+.Keypad {
+
+  $gutter: 0.25rem;
+
+  $key-width: 8rem;
+  $key-height: 3rem;
+  $key-bg: white;
+  $key-active-bg: #555;
+
+  $display-height: 3em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+
+  .display {
+    margin: $gutter;
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: $display-height;
+    border: 1px solid #c3c3c3;
+    border-radius: var(--border-radius-default);
+    background: #f5f3f3;
+  }
+
+  .keys {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: stretch;
+    }
+
+    .key {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: $key-width;
+      height: $key-height;
+      margin: $gutter;
+      background: $key-bg;
+      border: 1px solid var(--primary-color);
+      border-radius: var(--border-radius-default);
+      font-size: 1rem;
+      color: var(--primary-color);
+
+      &:active {
+        background-color: $key-active-bg;
+        color: white;
+      }
+    }
+  }
+}

@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
 
+import { Keypad } from './Keypad';
+
 import './style.scss';
 
 interface DashboardProps {
@@ -19,7 +21,7 @@ class DashboardComponent extends React.Component<DashboardProps> {
           'armed': this.props.armed
         })}
       >
-        Dashboard
+        <Keypad />
       </div>
     );
   }
