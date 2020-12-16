@@ -20,6 +20,8 @@ public:
 private slots:
     void on_btn_key_1_clicked();
 
+    void on_btn_key_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer *clockTimer;
