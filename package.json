@@ -14,7 +14,7 @@
     "PiCroft",
     "GUI"
   ],
-  "main": "./dist/main.js",
+  "main": "./build/main.js",
   "scripts": {
     "dev:electron": "cross-env NODE_ENV=development webpack --config webpack.electron.config.js --mode development && electron .",
     "dev:react": "cross-env NODE_ENV=development webpack-dev-server --config webpack.react.config.js --mode development",
@@ -33,14 +33,14 @@
   "license": "MIT",
   "build": {
     "files": [
-      "dist/**/*",
+      "build/**/*",
       "node_modules/",
       "package.json"
     ],
     "productName": "Alarm Panel",
     "appId": "mqtt-alarm-panel.gui",
     "directories": {
-      "output": "native-dist"
+      "output": "dist"
     }
   },
   "browserslist": [
