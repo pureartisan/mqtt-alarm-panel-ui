@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>600</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -279,8 +279,8 @@
    <widget class="QGroupBox" name="grp_keypad">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>10</y>
+      <x>50</x>
+      <y>110</y>
       <width>511</width>
       <height>581</height>
      </rect>
@@ -516,7 +516,7 @@
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="text">
-      <string>*</string>
+      <string>×</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_key_hash">
@@ -537,14 +537,14 @@
       <enum>Qt::NoFocus</enum>
      </property>
      <property name="text">
-      <string>#</string>
+      <string>✓</string>
      </property>
     </widget>
    </widget>
    <widget class="QLabel" name="lbl_current_date">
     <property name="geometry">
      <rect>
-      <x>860</x>
+      <x>1100</x>
       <y>0</y>
       <width>150</width>
       <height>31</height>
@@ -562,7 +562,7 @@
    <widget class="QLabel" name="lbl_current_time">
     <property name="geometry">
      <rect>
-      <x>860</x>
+      <x>1100</x>
       <y>30</y>
       <width>150</width>
       <height>31</height>
@@ -575,6 +575,76 @@
     </property>
     <property name="text">
      <string>Time</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="txt_input">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>40</y>
+      <width>491</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>26</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>ArrowCursor</cursorShape>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
