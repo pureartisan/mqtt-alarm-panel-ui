@@ -11,6 +11,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowState(Qt::WindowFullScreen);
+    this->updateCurrentDateAndTime();
+    this->startClock();
 }
 
 MainWindow::~MainWindow()
