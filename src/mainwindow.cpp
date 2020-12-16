@@ -4,6 +4,9 @@
 #include <QDateTime>
 #include <QString>
 #include <QTimer>
+#include <QDebug>
+#include <QApplication>
+#include <QDesktopWidget>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +16,10 @@ MainWindow::MainWindow(QWidget *parent)
     this->setWindowState(Qt::WindowFullScreen);
     this->updateCurrentDateAndTime();
     this->startClock();
+
+    QRect rec = QApplication::desktop()->screenGeometry();
+    qDebug() << "Width" + QString(rec.width());
+    qDebug() << "Height" + QString(rec.height());
 }
 
 MainWindow::~MainWindow()
