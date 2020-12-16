@@ -8,11 +8,12 @@ Window {
     width: 1280
     height: 720
     title: qsTr("Hello World")
+    visibility: Window.FullScreen
 
     RoundButton {
         id: addAlarmButton
         text: "+"
-        anchors.bottom: alarmListView.bottom
+        anchors.bottom: 0
         anchors.bottomMargin: 8
         anchors.horizontalCenter: parent.horizontalCenter
     }
