@@ -23,24 +23,24 @@
     "build": "npm run build:electron && npm run build:react",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "dist:pi": "electron-builder --armv7l --linux deb",
-    "dist:pi:64": "electron-builder --arm64 --linux deb",
-    "pack:pi": "electron-builder --dir --armv7l --linux deb",
-    "pack:pi:64": "electron-builder --dir --arm64 --linux deb",
+    "dist:pi": "npm run build && electron-builder --armv7l --linux deb",
+    "dist:pi:64": "npm run build && electron-builder --arm64 --linux deb",
+    "pack:pi": "npm run build && electron-builder --dir --armv7l --linux deb",
+    "pack:pi:64": "npm run build && electron-builder --dir --arm64 --linux deb",
     "lint": "tslint 'src/**/*.{ts,tsx,js}'",
     "lint:fix": "npm run lint -- --fix"
   },
   "license": "MIT",
   "build": {
     "files": [
-      "dist/",
+      "dist/**/*",
       "node_modules/",
       "package.json"
     ],
     "productName": "Alarm Panel",
     "appId": "mqtt-alarm-panel.gui",
     "directories": {
-      "output": "dist"
+      "output": "native-dist"
     }
   },
   "browserslist": [
