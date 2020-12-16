@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
 
-import { Date } from './Date';
-import { Clock } from './Clock';
+import { Date } from '../../StandByScreen/Date';
+import { Clock } from '../../StandByScreen/Clock';
 
 import './style.scss';
 

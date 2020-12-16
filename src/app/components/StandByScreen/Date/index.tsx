@@ -1,16 +1,15 @@
 import React from 'react';
-import classnames from 'classnames';
 
 import './style.scss';
 
 type ClockColorMode = 'dark' | 'light';
 
 interface DateProps {
+  date: Date
   mode?: ClockColorMode
 }
 
 interface DateState {
-  interval?: number
   day?: string
   month?: string
   date?: string
@@ -23,7 +22,8 @@ interface NameMap {
 class DateComponent extends React.Component<DateProps, DateState> {
 
   static defaultProps: DateProps = {
-    mode: 'light'
+    mode: 'light',
+    date: new Date()
   };
 
   private static DAY_NAMES: NameMap = {
@@ -54,19 +54,19 @@ class DateComponent extends React.Component<DateProps, DateState> {
   state: DateState = {};
 
   componentDidMount() {
-    this.startClock();
+    this.calculateDateParts(this.props.date);
   }
 
-  componentWillMount() {
-    this.stopClock();
+  componentDidUpdate(prevProps: DateProps) {
+    if (this.props.date !== prevProps?.date) {
+      this.calculateDateParts(this.props.date);
+    }
   }
 
   render() {
     return (
       <div
-        className={classnames(`Date mode-${this.props.mode}`, {
-          'not-ready': !this.state.date
-        })}
+        className={`Date mode-${this.props.mode}`}
       >
         <span className="day">{this.state.day}</span>
         <span className="date">{this.state.date}</span>
@@ -75,30 +75,15 @@ class DateComponent extends React.Component<DateProps, DateState> {
     );
   }
 
-  private startClock(): void {
-    const interval = window.setInterval(() => {
-
-      const today = new Date();
-      const day = DateComponent.DAY_NAMES[today.getDay()];
-      const date = `${today.getDate()}`;
-      const month = DateComponent.MONTH_NAMES[today.getMonth()];
-      this.setState({
-        day,
-        date,
-        month
-      });
-
-    }, 1000);
-
+  private calculateDateParts(today: Date): void {
+    const day = DateComponent.DAY_NAMES[today.getDay()];
+    const date = `${today.getDate()}`;
+    const month = DateComponent.MONTH_NAMES[today.getMonth()];
     this.setState({
-      interval
+      day,
+      date,
+      month
     });
-  }
-
-  private stopClock(): void {
-    if (this.state.interval) {
-      clearInterval(this.state.interval);
-    }
   }
 }
 

@@ -1,4 +1,4 @@
-.DateTimeSkill {
+.MainClock {
   .Clock {
     display: flex;
     flex-direction: row;
@@ -24,8 +24,9 @@
     }
 
     .seconds {
+      position: absolute;
       font-size: 5rem;
-      margin-top: -1em;
+      margin-top: 1.5rem;
     }
   }
 }
