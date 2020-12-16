@@ -14,9 +14,12 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     this->setWindowState(Qt::WindowFullScreen);
+    this->updateArmButtons();
+
     this->updateCurrentDateAndTime();
     this->startClock();
 
+    // DEBUG ONLY
     QRect rec = QApplication::screens().first()->geometry();
     qDebug() << "Screen";
     qDebug() << rec;
@@ -27,6 +30,11 @@ MainWindow::~MainWindow()
     disconnect(clockTimer);
     delete clockTimer;
     delete ui;
+}
+
+void MainWindow::updateArmButtons()
+{
+    ui->btn_disarm->setVisible(false);
 }
 
 void MainWindow::startClock()

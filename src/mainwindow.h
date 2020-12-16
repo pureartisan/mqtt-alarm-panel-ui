@@ -22,5 +22,6 @@ private:
 
     void startClock();
     void updateCurrentDateAndTime();
+    void updateArmButtons();
 };
 #endif // MAINWINDOW_H
