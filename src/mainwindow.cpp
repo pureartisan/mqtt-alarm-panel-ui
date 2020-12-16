@@ -51,3 +51,20 @@ void MainWindow::updateCurrentDateAndTime()
     this->ui->lbl_current_date->setText(dateTime.toString("yyyy-MM-dd"));
     this->ui->lbl_current_time->setText(dateTime.toString("hh-mm-ss"));
 }
+
+void MainWindow::hideCursor()
+{
+    cursor.setPos(0, 0);
+}
+
+void MainWindow::on_btn_key_1_clicked()
+{
+    // TODO
+    hideCursor();
+}
+
+void MainWindow::on_btn_key_2_clicked()
+{
+    // TODO
+    hideCursor();
+}

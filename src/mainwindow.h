@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QCursor>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,12 +17,17 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_btn_key_1_clicked();
+
 private:
     Ui::MainWindow *ui;
     QTimer *clockTimer;
+    QCursor cursor;
 
     void startClock();
     void updateCurrentDateAndTime();
     void updateArmButtons();
+    void hideCursor();
 };
 #endif // MAINWINDOW_H
