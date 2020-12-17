@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { ReduxState } from '@app/redux/reducers';
 
 import { Keypad } from '../Keypad';
+import { ArmedStatus } from '../ArmedStatus';
 
 import './style.scss';
 
@@ -26,6 +27,9 @@ class DisarmScreenComponent extends React.Component<DisarmScreenProps, DisarmScr
     return (
       <div className="DisarmScreen">
         <Keypad />
+        <div className="info">
+          <ArmedStatus />
+        </div>
       </div>
     );
   }

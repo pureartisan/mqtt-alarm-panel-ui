@@ -15,7 +15,6 @@ interface ClockProps {
 }
 
 interface ClockState {
-  interval?: number
   hours?: string
   mins?: string
   seconds?: string

@@ -1,3 +1,5 @@
+@import '@app/styles/helpers/mixins';
+
 .Dashboard {
   .Keypad {
 
@@ -6,7 +8,6 @@
 
     $key-width: calc(33.33% - #{$gutter}); // 3 columns
     $key-bg: white;
-    $key-active-bg: #555;
     $row-height: calc(25% - #{$gutter}); // 4 rows of keys
 
     $display-height: 3em;
@@ -77,25 +78,10 @@
       }
 
       .key {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
+        @include button;
         width: $key-width;
         height: 100%;
-        background: $key-bg;
-        border: 1px solid var(--color-primary);
-        border-radius: var(--border-radius-default);
         font-size: 3.5rem;
-        color: var(--color-primary);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-
-        &:active {
-          background-color: $key-active-bg;
-          color: white;
-        }
 
         &.clear-button {
           color: var(--color-warning);

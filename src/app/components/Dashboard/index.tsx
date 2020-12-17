@@ -7,6 +7,7 @@ import { ArmedStatus } from '@app/redux/actions/armed';
 
 import { ArmScreen } from './ArmScreen';
 import { DisarmScreen } from './DisarmScreen';
+import { NavBar } from './NavBar';
 
 import './style.scss';
 
@@ -23,6 +24,7 @@ class DashboardComponent extends React.Component<DashboardProps> {
           'armed': this.props.armed
         })}
       >
+        <NavBar />
         {this.props.armed ? (
           <DisarmScreen />
         ) : (
