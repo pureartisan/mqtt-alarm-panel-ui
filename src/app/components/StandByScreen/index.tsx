@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
+import { ArmedStatus } from '@app/redux/actions/armed';
 
 import { StandByService } from '@app/services/stand-by';
 
@@ -11,7 +12,7 @@ import { DateTime } from './DateTime';
 import './style.scss';
 
 interface StandByScreenProps {
-  armed?: boolean;
+  armed?: ArmedStatus;
 }
 
 class StandByScreenComponent extends React.Component<StandByScreenProps> {
@@ -35,7 +36,7 @@ class StandByScreenComponent extends React.Component<StandByScreenProps> {
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<StandByScreenProps>): Partial<StandByScreenProps> => ({
-  armed: false // TODO get from stage
+  armed: state.armed.status
 });
 
 export const StandByScreen = connect(mapStateToProps)(StandByScreenComponent);

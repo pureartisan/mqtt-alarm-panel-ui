@@ -1,29 +1,31 @@
 import React from 'react';
-import classnames from 'classnames';
 import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
 
+import { ArmOptions } from '../ArmOptions';
+import { ArmingCountdown } from '../ArmingCountdown';
+
 import './style.scss';
 
 interface ArmScreenProps {
-  armed?: boolean;
+  armingCountdown?: number | null;
 }
 
-interface ArmScreenState {
-  value?: string
-}
+interface ArmScreenState {}
 
 class ArmScreenComponent extends React.Component<ArmScreenProps, ArmScreenState> {
 
-  state: ArmScreenState = {
-    value: ''
-  };
+  state: ArmScreenState = {};
 
   render() {
     return (
       <div className="ArmScreen">
-        // System is disarmed
+        {this.props.armingCountdown ? (
+          <ArmingCountdown />
+        ) : (
+          <ArmOptions />
+        )}
       </div>
     );
   }
@@ -31,7 +33,7 @@ class ArmScreenComponent extends React.Component<ArmScreenProps, ArmScreenState>
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<ArmScreenProps>): Partial<ArmScreenProps> => ({
-  armed: false // TODO get from stage
+  armingCountdown: state.armed.countdown
 });
 
 export const ArmScreen = connect(mapStateToProps)(ArmScreenComponent);

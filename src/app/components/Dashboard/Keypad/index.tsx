@@ -1,29 +1,47 @@
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
 
 import './style.scss';
+import { AlarmService } from '@app/services/alarm';
+
+const MAX_CHARS = 8;
+const MAX_CHARS_INDICATOR_DELAY = 1000; // 1 second
 
 interface KeypadProps {
   armed?: boolean;
 }
 
 interface KeypadState {
-  value?: string
+  value?: string,
+  maxCharsReached?: boolean
 }
 
 class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
 
   state: KeypadState = {
-    value: ''
+    value: '',
+    maxCharsReached: false
   };
+
+  private mounted = false;
+
+  componentDidMount() {
+    this.mounted = true;
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
 
   render() {
     return (
       <div className="Keypad">
-        <div className="display">
+        <div className={classNames('display', {
+          'max-chars-reached': this.state.maxCharsReached
+        })}>
           <span className="displayText">
             {this.state.value && this.state.value.split('').map(() => '*')}
           </span>
@@ -45,30 +63,65 @@ class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
             <div className="key" onClick={() => this.handleKeyClicked(9)}>9</div>
           </div>
           <div className="row">
-            <div className="key clear-button" onClick={this.handleClearClicked}>clear</div>
+            <div className={classNames("key clear-button", {
+              disabled: !this.state.value
+            })} onClick={this.handleClearClicked}>×</div>
             <div className="key" onClick={() => this.handleKeyClicked(0)}>0</div>
-            <div className="key done-button" onClick={this.handleDoneClicked}>done</div>
+            <div className={classNames("key done-button", {
+              disabled: !this.state.value
+            })} onClick={this.handleDoneClicked}>done</div>
           </div>
         </div>
       </div>
     );
   }
 
+  private addNumberToValue(num: number): void {
+    const curr = this.state.value || '';
+    if (curr.length >= MAX_CHARS) {
+      this.showMaxCharsReachedIndicator();
+    } else {
+      this.setState({
+        value: `${curr}${num}`
+      });
+    }
+  }
+
+  private showMaxCharsReachedIndicator(): void {
+    if (this.mounted) {
+      this.setState({
+        maxCharsReached: true
+      }, () => setTimeout(
+        () => this.hideMaxCharsReachedIndicator(),
+        MAX_CHARS_INDICATOR_DELAY
+      ));
+    }
+  }
+
+  private hideMaxCharsReachedIndicator(): void {
+    if (this.mounted) {
+      this.setState({
+        maxCharsReached: false
+      });
+    }
+  }
+
   private handleKeyClicked = (num: number): void => {
-    this.setState({
-      value: `${this.state.value || ''}${num}`
-    });
+    this.addNumberToValue(num);
   };
 
   private handleClearClicked = (): void => {
-    this.setState({
-      value: ''
-    });
+    if (this.state.value) { // only when there is a value
+      this.setState({
+        value: ''
+      });
+    }
   };
 
   private handleDoneClicked = (): void => {
-    // TODO test
-    console.log(this.state.value);
+    if (this.state.value) { // only when there is a value
+      AlarmService.disarm(this.state.value);
+    }
   };
 
 }

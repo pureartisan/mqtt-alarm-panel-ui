@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
+import { ArmedStatus } from '@app/redux/actions/armed';
 
 import { ArmScreen } from './ArmScreen';
 import { DisarmScreen } from './DisarmScreen';
@@ -10,7 +11,7 @@ import { DisarmScreen } from './DisarmScreen';
 import './style.scss';
 
 interface DashboardProps {
-  armed?: boolean;
+  armed?: ArmedStatus;
 }
 
 class DashboardComponent extends React.Component<DashboardProps> {
@@ -33,7 +34,7 @@ class DashboardComponent extends React.Component<DashboardProps> {
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<DashboardProps>): Partial<DashboardProps> => ({
-  armed: true // TODO get from stage
+  armed: state.armed.status
 });
 
 export const Dashboard = connect(mapStateToProps)(DashboardComponent);
