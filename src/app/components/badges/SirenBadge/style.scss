@@ -1,4 +1,4 @@
-.ShieldBadge {
+.SirenBadge {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +8,7 @@
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center;
-    color: var(--color-success);
+    color: var(--color-danger);
   }
 
   .ring {
@@ -19,9 +19,9 @@
     height: 10rem;
     border-radius: 100%;
     background: white;
-    border: 0.3rem solid var(--color-success);
+    border: 0.3rem solid var(--color-danger);
 
-    .ShieldIcon {
+    .SirenIcon {
       width: 7rem;
       height: 7rem;
     }

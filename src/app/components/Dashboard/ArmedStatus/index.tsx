@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { ReduxState } from '@app/redux/reducers';
 
 import { ShieldBadge } from '@app/components/badges/ShieldBadge';
+import { SirenBadge } from '@app/components/badges/SirenBadge';
 
 import './style.scss';
 
@@ -20,10 +21,12 @@ class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatus
   render() {
     return (
       <div className="ArmedStatus">
-        <div className="armed">
-          <div className="label">System<br/>Armed</div>
-          <ShieldBadge />
-        </div>
+        <ShieldBadge>
+          System<br/>Armed
+        </ShieldBadge>
+        <SirenBadge>
+          Please<br/>Disarm
+        </SirenBadge>
       </div>
     );
   }

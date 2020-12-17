@@ -2,13 +2,16 @@ import React from 'react';
 
 import './style.scss';
 
+type Animation = 'breath' | 'tremble';
+
 interface SirenIconProps {
+  animation?: Animation
   fill1?: string
   fill2?: string
   fill3?: string
 }
 
-export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
+export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) => (
   <svg
     xmlSpace="preserve"
     viewBox="0 0 100 100"
@@ -36,7 +39,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.592593s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.592593s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -53,7 +56,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.62963s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.62963s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -75,7 +78,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.666667s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.666667s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -97,7 +100,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.703704s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.703704s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -114,7 +117,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.740741s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.740741s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -135,7 +138,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.777778s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.777778s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -156,7 +159,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.814815s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.814815s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -177,7 +180,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.851852s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.851852s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -198,7 +201,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.888889s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.888889s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -219,7 +222,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.925926s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.925926s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -240,7 +243,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -0.962963s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -0.962963s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <path
@@ -261,7 +264,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -1s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -1s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <circle
@@ -281,7 +284,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -1.03704s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -1.03704s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <circle
@@ -300,7 +303,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -1.07407s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -1.07407s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <circle
@@ -319,7 +322,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'matrix(1, 0, 0, 1, 0, 0)',
-              animation: '1.11111s linear -1.11111s infinite normal forwards running icon-siren-tremble'
+              animation: `1.11111s linear -1.11111s infinite normal forwards running icon-siren-${animation}`
             }}
           >
             <circle
@@ -340,6 +343,7 @@ export const SirenIcon = ({ fill1, fill2, fill3 }: SirenIconProps) => (
 );
 
 SirenIcon.defaultProps = {
+  animation: 'tremble',
   fill1: '#0da035',
   fill2: '#ffffff',
   fill3: '#8bd673'

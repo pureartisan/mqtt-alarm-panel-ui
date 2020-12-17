@@ -1,20 +1,20 @@
 import React from 'react';
 
-import { ShieldIcon } from '@app/components/icons/ShieldIcon';
+import { SirenIcon } from '@app/components/icons/SirenIcon';
 
 import './style.scss';
 
-interface ShieldBadgeProps {
+interface SirenBadgeProps {
   children?: React.ReactNode | React.ReactNode[]
 }
 
-export const ShieldBadge = (props: ShieldBadgeProps) => (
-  <div className="ShieldBadge">
+export const SirenBadge = (props: SirenBadgeProps) => (
+  <div className="SirenBadge">
     <div className="label">
       { props.children }
     </div>
     <div className="ring">
-      <ShieldIcon />
+      <SirenIcon />
     </div>
   </div>
 );
