@@ -36,11 +36,11 @@ class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatus
           </PendingShieldBadge>
         )}
         {showSiren && (
-          <SirenBadge>
+          <SirenBadge countdown={this.props.countdown}>
             {isTriggered ? (
-              <React.Fragment>Please<br/>Disarm</React.Fragment>
-            ) : (
               <React.Fragment>Informing<br/>Police</React.Fragment>
+            ) : (
+              <React.Fragment>Please<br/>Disarm</React.Fragment>
             )}
           </SirenBadge>
         )}
