@@ -36,8 +36,8 @@ export const armed = (state: ArmedState = initialState, action: ArmedActionTypes
     case 'ARMED_SET_ALARM_TRIGGERED':
       return {
         ...state,
-        prevStatus: getPrevStatus(state, 'pending'),
-        status: 'pending',
+        prevStatus: getPrevStatus(state, 'triggered'),
+        status: 'triggered',
         countdown: action.countdown
       };
     default:

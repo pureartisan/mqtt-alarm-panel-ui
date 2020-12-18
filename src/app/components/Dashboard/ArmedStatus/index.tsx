@@ -11,6 +11,7 @@ import { SirenBadge } from '@app/components/badges/SirenBadge';
 import './style.scss';
 
 interface ArmedStatusProps {
+  prevStatus?: AlarmArmedStatus
   armed?: AlarmArmedStatus
   countdown?: number
 }
@@ -22,19 +23,25 @@ class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatus
   state: ArmedStatusState = {};
 
   render() {
+    const previouslyArmed = this.isSystemArmed(this.props.prevStatus);
     const isPending = this.props.armed === 'pending';
     const isTriggered = this.props.armed === 'triggered';
-    const isArmed = !isPending && !isTriggered;
+    const isArmed = this.isSystemArmed(this.props.armed);
+    const showSiren = isTriggered || (isPending && previouslyArmed);
     return (
       <div className="ArmedStatus">
-        {isPending && (
+        {isPending && !previouslyArmed && (
           <PendingShieldBadge countdown={this.props.countdown}>
             Arming
           </PendingShieldBadge>
         )}
-        {isTriggered && (
+        {showSiren && (
           <SirenBadge>
-            Please<br/>Disarm
+            {isTriggered ? (
+              <React.Fragment>Please<br/>Disarm</React.Fragment>
+            ) : (
+              <React.Fragment>Informing<br/>Police</React.Fragment>
+            )}
           </SirenBadge>
         )}
         {isArmed && (
@@ -46,9 +53,14 @@ class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatus
     );
   }
 
+  private isSystemArmed(status?: AlarmArmedStatus): boolean {
+    return status === 'armed_away' || status === 'armed_home';
+  }
+
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<ArmedStatusProps>): Partial<ArmedStatusProps> => ({
+  prevStatus: state.armed.prevStatus,
   armed: state.armed.status,
   countdown: state.armed.countdown || 0
 });

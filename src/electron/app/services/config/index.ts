@@ -24,6 +24,7 @@ interface Config {
   }
   pending_time?: number
   delay_time?: number
+  trigger_time?: number
 }
 
 const DEFAULT_CONFIG: Config = {
@@ -32,11 +33,12 @@ const DEFAULT_CONFIG: Config = {
     state_topic: 'home/alarm',
     command_topic: 'home/alarm/set'
   },
-  pending_time: 60,
-  delay_time: 60,
   ui: {
     stand_by_screen_delay: 90
-  }
+  },
+  pending_time: 60,
+  delay_time: 60,
+  trigger_time: 600
 };
 
 class ConfigService {
@@ -117,7 +119,6 @@ class ConfigService {
       event.returnValue = JSON.stringify(this.conf.ui);
     });
   }
-
 
 }
 

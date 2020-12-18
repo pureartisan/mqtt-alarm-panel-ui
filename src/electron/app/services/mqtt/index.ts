@@ -77,6 +77,8 @@ class MqttService {
     let data = undefined;
     if (state === "pending") {
       data = ConfigService.config.pending_time;
+    } else if (state === "triggered") {
+      data = ConfigService.config.trigger_time;
     }
     // remember the last state
     this.lastAlarmState = state;
