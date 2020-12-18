@@ -1,21 +1,10 @@
-import { ipcRenderer } from 'electron';
-
 import { TimeService } from '@app/services/time';
+import { AlarmService } from '@app/services/alarm';
 
 class AppInitialiser {
   init () {
     TimeService.init();
-
-
-    // TESTING
-    // prints "pong"
-    console.log(ipcRenderer.sendSync('synchronous-message', 'ping'));   // tslint:disable-line no-console
-
-    ipcRenderer.on('asynchronous-reply', (event, arg) => {
-      // prints "pong"
-      console.log(arg); // tslint:disable-line no-console
-    });
-    ipcRenderer.send('asynchronous-message', 'ping');
+    AlarmService.init();
   }
 }
 

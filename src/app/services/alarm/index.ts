@@ -1,21 +1,59 @@
-import { ArmedStatus, setArmedStatus } from '@app/redux/actions/armed';
+import { ipcRenderer } from 'electron';
+
+import { CHANNEL_SEND_COMMAND, CHANNEL_ALARM_STATE_CHANGED } from '@shared/constants';
+import { Command, AlarmArmedState } from '@shared/models';
+
+import { setAlarmTriggered, setArmedStatus, setArmedPending } from '@app/redux/actions/armed';
 
 class AlarmService {
+  init(): void {
+    this.listenToStateChangesFromServer();
+  }
+
   disarm(code: string): void {
     // TODO check code
-    setArmedStatus(null);
+    this.sendCommand('DISARM');
   }
 
   armHome(): void {
-    setArmedStatus('arm_home');
+    this.sendCommand('ARM_HOME');
   }
 
   armAway(): void {
-    setArmedStatus('arm_away');
+    this.sendCommand('ARM_AWAY');
   }
 
-  armNight(): void {
-    setArmedStatus('arm_night');
+  private sendCommand(command: Command): void {
+    console.log('Sending command to main thread:', command);
+    ipcRenderer.send(CHANNEL_SEND_COMMAND, command);
+  }
+
+  private listenToStateChangesFromServer(): void {
+    ipcRenderer.on(CHANNEL_ALARM_STATE_CHANGED, (event, alarmState: AlarmArmedState, data?: any) => {
+      console.log('Status received from main thread:', alarmState, data);
+      this.updateArmedStatus(alarmState, data);
+    });
+  }
+
+  private updateArmedStatus(alarmState: AlarmArmedState, data?: any): void {
+    switch (alarmState) {
+      case 'disarmed':
+        setArmedStatus(null);
+        return;
+      case 'armed_home':
+      case 'armed_night':
+        setArmedStatus('armed_home');
+        return;
+      case 'armed_away':
+        setArmedStatus('armed_away');
+        return;
+      case 'triggered':
+        setAlarmTriggered();
+        return;
+      case 'pending':
+        setArmedPending(data);
+        return;
+    }
   }
 }
 

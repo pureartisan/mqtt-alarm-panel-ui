@@ -4,7 +4,7 @@ import * as url from 'url';
 
 import { IS_PI } from '@electron/utils/device';
 
-let mainWindow: Electron.BrowserWindow | null;
+let mainWindow: BrowserWindow | null;
 
 const DEV_MODE = process.env.NODE_ENV === 'development';
 
@@ -37,7 +37,8 @@ function createWindow() {
   mainWindow.loadURL(entryUrl);
 
   // load the main app logic
-  require('./app');
+  const { preInitApp, postInitApp } = require('./app');
+  preInitApp(mainWindow);
 
   // Don't show until we are ready and loaded
   mainWindow.once('ready-to-show', () => {
@@ -56,6 +57,10 @@ function createWindow() {
     if (DEV_MODE) {
       mainWindow.webContents.openDevTools();
     }
+  });
+
+  mainWindow.webContents.once('did-finish-load', () => {
+    postInitApp(mainWindow);
   });
 
   mainWindow.on('closed', () => {

@@ -21,7 +21,8 @@
     "baseUrl": "./src",
     "paths": {
       "@app/*": ["app/*"],
-      "@electron/*": ["electron/app/*"]
+      "@electron/*": ["electron/app/*"],
+      "@shared/*": ["shared/*"],
     }
   }
 }

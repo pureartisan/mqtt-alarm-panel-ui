@@ -1,15 +1,14 @@
-import { ipcMain } from 'electron';
+import { BrowserWindow } from 'electron';
 
-// TESTING
-// =================================
-ipcMain.on('asynchronous-message', (event: any, arg: any) => {
-  // prints "ping"
-  console.log(arg); // tslint:disable-line no-console
-  event.reply('asynchronous-reply', 'pong');
-});
+import { ConfigService } from '@electron/services/config';
+import { MqttService } from '@electron/services/mqtt';
 
-ipcMain.on('synchronous-message', (event: any, arg: any) => {
-  // prints "ping"
-  console.log(arg); // tslint:disable-line no-console
-  event.returnValue = 'pong';
-});
+// Before the browser window is loaded
+export const preInitApp = (mainWindow: BrowserWindow) => {
+  ConfigService.init();
+};
+
+// After the browser window is full loaded
+export const postInitApp = (mainWindow: BrowserWindow) => {
+  MqttService.init(mainWindow);
+};

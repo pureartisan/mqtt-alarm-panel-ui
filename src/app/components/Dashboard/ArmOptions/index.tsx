@@ -19,7 +19,6 @@ class ArmOptionsComponent extends React.Component<ArmOptionsProps, ArmOptionsSta
         <div className="buttons">
           <span className="arm-button arm-home" onClick={this.handleArmHomeClicked}>Arm<br/>Now</span>
           <span className="arm-button arm-away" onClick={this.handleArmAwayClicked}>Arm<br/>Away</span>
-          <span className="arm-button arm-night" onClick={this.handleArmNightClicked}>Arm<br/>Night</span>
         </div>
       </div>
     );
@@ -31,10 +30,6 @@ class ArmOptionsComponent extends React.Component<ArmOptionsProps, ArmOptionsSta
 
   private handleArmAwayClicked = () => {
     AlarmService.armAway();
-  };
-
-  private handleArmNightClicked = () => {
-    AlarmService.armNight();
   };
 
 }

@@ -4,7 +4,8 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = {
   resolve: {
     alias: {
-      '@electron': path.resolve(__dirname, './src/electron/app/')
+      '@electron': path.resolve(__dirname, './src/electron/app/'),
+      '@shared': path.resolve(__dirname, './src/shared/')
     },
     extensions: [".tsx", ".ts", ".js"],
   },
