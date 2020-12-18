@@ -67,8 +67,7 @@ export class PendingShieldBadgeComponent extends React.Component<PendingShieldBa
   }
 
   private calcualteCountDownEndAt(): void {
-    // TODO: figure out why it's delayed by 1 second, so we have to manually remove 1
-    const diffSeconds = (this.props.countdown || 0) - 1;
+    const diffSeconds = this.props.countdown || 0;
     this.setState({
       countdownEndAt: new Date().getTime() + (diffSeconds * 1000)
     });
