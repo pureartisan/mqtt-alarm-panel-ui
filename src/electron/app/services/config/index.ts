@@ -1,6 +1,10 @@
 import { readFileSync, existsSync } from 'fs';
 import { homedir } from 'os';
 import { resolve as pathResolve } from 'path';
+import { ipcMain } from 'electron';
+
+import { CHANNEL_GET_CONFIG } from '@shared/constants';
+import { UiConfig } from '@shared/models';
 
 const CONFIG_PATHS = [
   pathResolve('./config.json'),
@@ -9,26 +13,30 @@ const CONFIG_PATHS = [
 ];
 
 interface Config {
+  ui: UiConfig
   mqtt: {
-    host?: string;
-    port: string;
-    username?: string;
-    password?: string;
-    state_topic: string;
-    command_topic: string;
+    host?: string
+    port: string
+    username?: string
+    password?: string
+    state_topic: string
+    command_topic: string
   }
   pending_time?: number
   delay_time?: number
 }
 
-const DEFAULT_CONFIG: Partial<Config> = {
+const DEFAULT_CONFIG: Config = {
   mqtt: {
     port: '1883',
     state_topic: 'home/alarm',
     command_topic: 'home/alarm/set'
   },
-  pending_time: 120,
-  delay_time: 60
+  pending_time: 60,
+  delay_time: 60,
+  ui: {
+    stand_by_screen_delay: 90
+  }
 };
 
 class ConfigService {
@@ -40,6 +48,7 @@ class ConfigService {
   init(): void {
     this.loadConfig();
     this.validateMqttConfig();
+    this.listenToCommandsFromRenderer();
   }
 
   get config(): Config {
@@ -55,14 +64,7 @@ class ConfigService {
 
       if (config) {
         this.confPath = configPath;
-        this.conf = {
-          ...DEFAULT_CONFIG,
-          ...config,
-          mqtt: {
-            ...DEFAULT_CONFIG.mqtt,
-            ...(config.mqtt || {})
-          }
-        };
+        this.conf = this.buildConfigWithDefaults(config);
         return;
       }
 
@@ -93,6 +95,29 @@ class ConfigService {
       throw Error(`Pending time not set in '${this.confPath}`);
     }
   }
+
+  private buildConfigWithDefaults(config: Config): Config {
+    return {
+      ...DEFAULT_CONFIG,
+      ...config,
+      mqtt: {
+        ...DEFAULT_CONFIG.mqtt,
+        ...(config.mqtt || {})
+      },
+      ui: {
+        ...DEFAULT_CONFIG.ui,
+        ...(config.ui || {})
+      }
+    }
+  }
+
+  private listenToCommandsFromRenderer(): void {
+    ipcMain.on(CHANNEL_GET_CONFIG, (event) => {
+      console.debug('Sending UI config to renderer', this.conf.ui);
+      event.returnValue = JSON.stringify(this.conf.ui);
+    });
+  }
+
 
 }
 

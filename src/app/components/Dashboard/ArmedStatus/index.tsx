@@ -29,7 +29,7 @@ class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatus
       <div className="ArmedStatus">
         {isPending && (
           <PendingShieldBadge countdown={this.props.countdown}>
-            Arming...
+            Arming
           </PendingShieldBadge>
         )}
         {isTriggered && (

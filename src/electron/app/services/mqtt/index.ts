@@ -1,7 +1,7 @@
 import { ipcMain, BrowserWindow } from 'electron';
 import { MqttClient, connect as mqttConnect, IClientOptions } from 'mqtt';
 
-import { CHANNEL_ALARM_STATE_CHANGED, CHANNEL_SEND_COMMAND } from '@shared/constants';
+import { CHANNEL_ALARM_STATE_CHANGED, CHANNEL_SEND_COMMAND, CHANNEL_GET_INITIAL_ALARAM_STATE } from '@shared/constants';
 import { Command, AlarmArmedState } from '@shared/models';
 
 import { ConfigService } from '@electron/services/config';
@@ -9,6 +9,7 @@ import { ConfigService } from '@electron/services/config';
 class MqttService {
   private mqttClient?: MqttClient;
   private mainWindow?: BrowserWindow;
+  private lastAlarmState?: AlarmArmedState;
 
   init(mainWindow: BrowserWindow): void {
     this.mainWindow = mainWindow;
@@ -20,6 +21,11 @@ class MqttService {
     ipcMain.on(CHANNEL_SEND_COMMAND, (event, command: Command) => {
       if (command) {
         this.publishCommandTopic(command);
+      }
+    });
+    ipcMain.on(CHANNEL_GET_INITIAL_ALARAM_STATE, () => {
+      if (this.lastAlarmState) {
+        this.handleStateChanged(this.lastAlarmState);
       }
     });
   }
@@ -72,6 +78,8 @@ class MqttService {
     if (state === "pending") {
       data = ConfigService.config.pending_time;
     }
+    // remember the last state
+    this.lastAlarmState = state;
     this.mainWindow?.webContents.send(CHANNEL_ALARM_STATE_CHANGED, state, data);
   }
 }

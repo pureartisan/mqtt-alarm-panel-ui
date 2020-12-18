@@ -6,3 +6,7 @@ export type AlarmArmedState = 'disarmed' |
  'armed_night' |
  'pending' |
  'triggered';
+
+export interface UiConfig {
+  stand_by_screen_delay: number
+}

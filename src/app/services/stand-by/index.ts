@@ -1,14 +1,13 @@
 import { debounce } from 'lodash';
 
 import { enableStandBy, disableStandBy } from '@app/redux/actions/stand-by';
+import { ConfigService } from '@app/services/config';
 
 const GLOBAL_INTERACTION_EVENTS: string[] = [
   'mousemove', 'scroll', 'keydown', 'click', 'touchstart'
 ];
 
 const INTERACTION_DETECTION_DEBOUNCE_DELAY = 1000; // 1 sec
-
-const STANDBY_DELAY = 60000; // 60 seconds
 
 class StandByService {
   private standBy: boolean = false;
@@ -61,8 +60,12 @@ class StandByService {
     this.timeout = window.setTimeout(() => {
       // enable stand by mode
       this.enableStandBy();
-    }, STANDBY_DELAY);
+    }, this.getStandByDelay());
   };
+
+  private getStandByDelay(): number {
+    return ConfigService.config.stand_by_screen_delay * 1000;
+  }
 
 }
 

@@ -47,14 +47,19 @@ export class PendingShieldBadgeComponent extends React.Component<PendingShieldBa
       <div className="PendingShieldBadge">
         <div className="label">
           { this.props.children }
-          <span>{ this.props.countdown }</span>
         </div>
         <div className="ring">
-          <ShieldIcon />
+          <ShieldIcon
+            fill1={'var(--color-warning)'}
+            fill2={'white'}
+            fill3={'var(--color-warning)'}
+          />
         </div>
         <div className="time-left">
-          {this.state.countdownEndAt && (
+          {this.state.timeLeft ? (
             <span>{`${this.state.mins}:${this.state.seconds}`}</span>
+          ) : (
+            <span>.....</span>
           )}
         </div>
       </div>

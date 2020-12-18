@@ -1,6 +1,6 @@
 import { ipcRenderer } from 'electron';
 
-import { CHANNEL_SEND_COMMAND, CHANNEL_ALARM_STATE_CHANGED } from '@shared/constants';
+import { CHANNEL_SEND_COMMAND, CHANNEL_ALARM_STATE_CHANGED, CHANNEL_GET_INITIAL_ALARAM_STATE } from '@shared/constants';
 import { Command, AlarmArmedState } from '@shared/models';
 
 import { setArmedStatus, setArmedPending } from '@app/redux/actions/armed';
@@ -8,6 +8,7 @@ import { setArmedStatus, setArmedPending } from '@app/redux/actions/armed';
 class AlarmService {
   init(): void {
     this.listenToStateChangesFromServer();
+    this.forceMainThreadToSendInitialState();
   }
 
   disarm(code: string): void {
@@ -21,6 +22,11 @@ class AlarmService {
 
   armAway(): void {
     this.sendCommand('ARM_AWAY');
+  }
+
+  private forceMainThreadToSendInitialState(): void {
+    console.log('Forcing main thread to send initial state.');
+    ipcRenderer.send(CHANNEL_GET_INITIAL_ALARAM_STATE);
   }
 
   private sendCommand(command: Command): void {
