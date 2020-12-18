@@ -33,7 +33,7 @@ class ArmScreenComponent extends React.Component<ArmScreenProps, ArmScreenState>
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<ArmScreenProps>): Partial<ArmScreenProps> => ({
-  armingCountdown: state.armed.countdown
+  armingCountdown: state.armed.pending
 });
 
 export const ArmScreen = connect(mapStateToProps)(ArmScreenComponent);

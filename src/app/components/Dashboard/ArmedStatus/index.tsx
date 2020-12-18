@@ -34,7 +34,7 @@ class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatus
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<ArmedStatusProps>): Partial<ArmedStatusProps> => ({
-  countdown: state.armed.countdown || 0
+  countdown: state.armed.pending || 0
 });
 
 export const ArmedStatus = connect(mapStateToProps)(ArmedStatusComponent);
