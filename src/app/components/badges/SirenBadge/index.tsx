@@ -22,6 +22,22 @@ interface SirenBadgeState {
   seconds?: string
 }
 
+interface TimeLeftProps {
+  timeLeft?: boolean
+  mins?: string,
+  seconds?: string
+}
+
+const TimeLeft = ({ timeLeft, mins, seconds }: TimeLeftProps) => (
+  <React.Fragment>
+    {timeLeft ? (
+      <span>{`${mins}:${seconds}`}</span>
+    ) : (
+      <span>.....</span>
+    )}
+  </React.Fragment>
+)
+
 export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenBadgeState> {
 
   state: SirenBadgeState = {
@@ -53,10 +69,14 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
           <SirenIcon animation={this.props.triggered ? 'tremble' : 'breath'} />
         </div>
         <div className="time-left">
-          {this.state.timeLeft ? (
-            <span>{`${this.state.mins}:${this.state.seconds}`}</span>
+          {this.props.triggered ? (
+            <span>-----</span>
           ) : (
-            <span>.....</span>
+            <TimeLeft
+              timeLeft={Boolean(this.state.timeLeft)}
+              mins={this.state.mins}
+              seconds={this.state.seconds}
+            />
           )}
         </div>
       </div>
@@ -64,9 +84,10 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
   }
 
   private calcualteCountDownEndAt(): void {
-    const diff = (this.props.countdown || 0) * 1000;
+    // TODO: figure out why it's delayed by 1 second, so we have to manually remove 1
+    const diffSeconds = (this.props.countdown || 0) - 1;
     this.setState({
-      countdownEndAt: new Date().getTime() + diff
+      countdownEndAt: new Date().getTime() + (diffSeconds * 1000)
     });
   }
 
