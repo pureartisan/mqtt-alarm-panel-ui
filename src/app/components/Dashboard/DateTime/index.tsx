@@ -37,11 +37,11 @@ class DateTimeComponent extends React.Component<DateTimeProps, DateTimeState> {
   render() {
     return (
       <div className="DateTime">
-        <div className="time">
-          { `${this.state.hours}:${this.state.mins}:${this.state.seconds}` }
-        </div>
         <div className="date">
           { `${this.state.date}.${this.state.month}.${this.state.year}` }
+        </div>
+        <div className="time">
+          { `${this.state.hours}:${this.state.mins}:${this.state.seconds}` }
         </div>
       </div>
     );
