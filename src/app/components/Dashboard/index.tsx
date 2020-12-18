@@ -21,7 +21,7 @@ class DashboardComponent extends React.Component<DashboardProps> {
     return (
       <div
         className={classnames("Dashboard", {
-          'armed': this.props.armed
+          [`armed-${this.props.armed}`]: this.props.armed
         })}
       >
         <NavBar />

@@ -1,6 +1,6 @@
 import { store } from '@app/redux/store';
 
-export type ArmedStatus = null | 'armed_home' | 'armed_away' | 'pending';
+export type ArmedStatus = null | 'armed_home' | 'armed_away' | 'pending' | 'triggered';
 
 export interface ArmedSetStatusAction {
   type: 'ARMED_SET_STATUS',
@@ -9,11 +9,12 @@ export interface ArmedSetStatusAction {
 
 export interface ArmedSetPendingAction {
   type: 'ARMED_SET_PENDING',
-  pending: number | null
+  countdown: number | null
 }
 
 export interface ArmedSetAlarmTriggeredAction {
-  type: 'ARMED_SET_ALARM_TRIGGERED'
+  type: 'ARMED_SET_ALARM_TRIGGERED',
+  countdown: number | null
 }
 
 export type ArmedActionTypes = ArmedSetStatusAction | ArmedSetPendingAction | ArmedSetAlarmTriggeredAction;
@@ -25,11 +26,12 @@ export const setArmedStatus = (status: ArmedStatus) => store.dispatch({
   status
 } as ArmedSetStatusAction);
 
-export const setArmedPending = (pending: number) => store.dispatch({
+export const setArmedPending = (countdown: number) => store.dispatch({
   type: 'ARMED_SET_PENDING',
-  pending
+  countdown
 } as ArmedSetPendingAction);
 
-export const setAlarmTriggered = () => store.dispatch({
-  type: 'ARMED_SET_ALARM_TRIGGERED'
+export const setAlarmTriggered = (countdown: number) => store.dispatch({
+  type: 'ARMED_SET_ALARM_TRIGGERED',
+  countdown
 } as ArmedSetAlarmTriggeredAction);

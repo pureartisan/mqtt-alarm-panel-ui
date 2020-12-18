@@ -9,9 +9,7 @@ import { ArmedStatus } from '../ArmedStatus';
 
 import './style.scss';
 
-interface DisarmScreenProps {
-  armed?: boolean;
-}
+interface DisarmScreenProps {}
 
 interface DisarmScreenState {
   value?: string
@@ -36,8 +34,10 @@ class DisarmScreenComponent extends React.Component<DisarmScreenProps, DisarmScr
 
 }
 
-const mapStateToProps = (state: ReduxState, ownProps: Partial<DisarmScreenProps>): Partial<DisarmScreenProps> => ({
-  armed: false // TODO get from stage
-});
+// const mapStateToProps = (state: ReduxState, ownProps: Partial<DisarmScreenProps>): Partial<DisarmScreenProps> => ({
+//   c: state.armed.pending
+// });
 
-export const DisarmScreen = connect(mapStateToProps)(DisarmScreenComponent);
+// export const DisarmScreen = connect(mapStateToProps)(DisarmScreenComponent);
+
+export { DisarmScreenComponent as DisarmScreen };

@@ -5,7 +5,7 @@ export interface StandByState {
 }
 
 const initialState: StandByState = {
-  active: false
+  active: true
 };
 
 export const standBy = (state = initialState, action: StandByActionTypes): StandByState => {

@@ -2,14 +2,12 @@ import { ArmedStatus, ArmedActionTypes } from '@app/redux/actions/armed';
 
 export interface ArmedState {
   status: ArmedStatus
-  triggered: boolean
-  pending: number | null
+  countdown: number | null
 }
 
 const initialState: ArmedState = {
   status: null,
-  pending: null,
-  triggered: false
+  countdown: null
 };
 
 export const armed = (state = initialState, action: ArmedActionTypes): ArmedState => {
@@ -18,20 +16,20 @@ export const armed = (state = initialState, action: ArmedActionTypes): ArmedStat
     case 'ARMED_SET_STATUS':
       return {
         ...state,
-        triggered: false,
-        status: action.status
+        status: action.status,
+        countdown: null
       };
     case 'ARMED_SET_PENDING':
       return {
         ...state,
-        triggered: false,
         status: 'pending',
-        pending: action.pending
+        countdown: action.countdown
       };
     case 'ARMED_SET_ALARM_TRIGGERED':
       return {
         ...state,
-        triggered: true
+        status: 'pending',
+        countdown: action.countdown
       };
     default:
       return state;

@@ -3,7 +3,7 @@ import { ipcRenderer } from 'electron';
 import { CHANNEL_SEND_COMMAND, CHANNEL_ALARM_STATE_CHANGED } from '@shared/constants';
 import { Command, AlarmArmedState } from '@shared/models';
 
-import { setAlarmTriggered, setArmedStatus, setArmedPending } from '@app/redux/actions/armed';
+import { setArmedStatus, setArmedPending } from '@app/redux/actions/armed';
 
 class AlarmService {
   init(): void {
@@ -48,7 +48,7 @@ class AlarmService {
         setArmedStatus('armed_away');
         return;
       case 'triggered':
-        setAlarmTriggered();
+        setArmedStatus('triggered');
         return;
       case 'pending':
         setArmedPending(data);

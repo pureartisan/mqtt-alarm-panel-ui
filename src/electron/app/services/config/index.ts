@@ -18,6 +18,7 @@ interface Config {
     command_topic: string;
   }
   pending_time?: number
+  delay_time?: number
 }
 
 const DEFAULT_CONFIG: Partial<Config> = {
@@ -26,7 +27,8 @@ const DEFAULT_CONFIG: Partial<Config> = {
     state_topic: 'home/alarm',
     command_topic: 'home/alarm/set'
   },
-  pending_time: 120
+  pending_time: 120,
+  delay_time: 60
 };
 
 class ConfigService {
