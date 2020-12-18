@@ -8,5 +8,6 @@ export type AlarmArmedState = 'disarmed' |
  'triggered';
 
 export interface UiConfig {
+  code: string
   stand_by_screen_delay: number
 }

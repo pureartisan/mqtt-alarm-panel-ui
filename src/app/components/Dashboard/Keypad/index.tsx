@@ -3,9 +3,9 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
+import { AlarmService } from '@app/services/alarm';
 
 import './style.scss';
-import { AlarmService } from '@app/services/alarm';
 
 const MAX_CHARS = 8;
 const MAX_CHARS_INDICATOR_DELAY = 1000; // 1 second
@@ -16,14 +16,14 @@ interface KeypadProps {
 
 interface KeypadState {
   value?: string,
-  maxCharsReached?: boolean
+  showError?: boolean
 }
 
 class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
 
   state: KeypadState = {
     value: '',
-    maxCharsReached: false
+    showError: false
   };
 
   private mounted = false;
@@ -40,7 +40,7 @@ class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
     return (
       <div className="Keypad">
         <div className={classNames('display', {
-          'max-chars-reached': this.state.maxCharsReached
+          'error': this.state.showError
         })}>
           <span className="displayText">
             {this.state.value && this.state.value.split('').map(() => '*')}
@@ -79,7 +79,7 @@ class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
   private addNumberToValue(num: number): void {
     const curr = this.state.value || '';
     if (curr.length >= MAX_CHARS) {
-      this.showMaxCharsReachedIndicator();
+      this.showErrorIndicator();
     } else {
       this.setState({
         value: `${curr}${num}`
@@ -87,21 +87,27 @@ class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
     }
   }
 
-  private showMaxCharsReachedIndicator(): void {
+  private showErrorIndicator(clearValue?: boolean): void {
     if (this.mounted) {
+      const clearError = () => {
+        this.hideErrorIndicator();
+        if (clearValue) {
+          this.clearValue();
+        }
+      };
+
       this.setState({
-        maxCharsReached: true
-      }, () => setTimeout(
-        () => this.hideMaxCharsReachedIndicator(),
-        MAX_CHARS_INDICATOR_DELAY
-      ));
+        showError: true
+      },
+        () => setTimeout(clearError, MAX_CHARS_INDICATOR_DELAY)
+      );
     }
   }
 
-  private hideMaxCharsReachedIndicator(): void {
+  private hideErrorIndicator(): void {
     if (this.mounted) {
       this.setState({
-        maxCharsReached: false
+        showError: false
       });
     }
   }
@@ -111,18 +117,25 @@ class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
   };
 
   private handleClearClicked = (): void => {
+    this.clearValue();
+  };
+
+  private handleDoneClicked = (): void => {
+    if (this.state.value) { // only when there is a value
+      const success = AlarmService.disarm(this.state.value);
+      if (!success) {
+        this.showErrorIndicator(true);
+      }
+    }
+  };
+
+  private clearValue(): void {
     if (this.state.value) { // only when there is a value
       this.setState({
         value: ''
       });
     }
-  };
-
-  private handleDoneClicked = (): void => {
-    if (this.state.value) { // only when there is a value
-      AlarmService.disarm(this.state.value);
-    }
-  };
+  }
 
 }
 

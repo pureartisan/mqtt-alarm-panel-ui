@@ -45,7 +45,7 @@
         transition: color $max-chars-transition-delay ease-in;
       }
 
-      &.max-chars-reached {
+      &.error {
         transition: border-color 0s ease-in;
         border-color: var(--color-danger);
 
