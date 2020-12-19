@@ -4,6 +4,41 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const IS_DEV = process.env.NODE_ENV === 'development';
+
+const buildPluginsList = () => {
+  const plugins = [];
+
+  plugins.push(
+    new HtmlWebpackPlugin()
+  );
+
+  plugins.push(
+    new webpack.DefinePlugin({
+      '__BUILD_INFO_ENV__': JSON.stringify(process.env.NODE_ENV)
+    })
+  );
+
+  if (!IS_DEV) {
+
+    plugins.push(
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: 'bundle.css',
+        chunkFilename: '[id].css'
+      })
+    );
+
+    plugins.push(
+      new MinifyPlugin()
+    );
+
+  }
+
+  return plugins;
+};
+
 module.exports = {
   resolve: {
     alias: {
@@ -78,17 +113,5 @@ module.exports = {
     path: path.resolve(__dirname, "build"),
     filename: "js/[name].js",
   },
-  plugins: [
-    new HtmlWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: 'bundle.css',
-      chunkFilename: '[id].css'
-    }),
-    new webpack.DefinePlugin({
-      '__BUILD_INFO_ENV__': JSON.stringify(process.env.NODE_ENV)
-    }),
-    new MinifyPlugin()
-  ],
+  plugins: buildPluginsList()
 };
