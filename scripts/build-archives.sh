@@ -6,6 +6,9 @@ cd $DIR/../dist
 
 for f in ./*; do
   if [ -d "$f" ]; then
-    tar -zcf "${f%/}.tar.gz" "$f/**/*";
+    echo "Archiving Starting... $f"
+    cd $f
+    tar -zcf "../${f%/}.tar.gz" .
+    echo "Archiving DONE $f"
   fi
 done
