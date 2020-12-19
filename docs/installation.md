@@ -2,8 +2,7 @@
 
 ## TLDR;
 
-* Install the following pre-requisites:
-** Node
+// TODO
 
 ## Installing Raspbian OS (64-bit)
 
@@ -20,14 +19,6 @@ sudo apt-get install -y --no-install-recommends \
   x11-xserver-utils \
   unclutter
 ```
-
-## Install Node
-
-Follow instructions from Debian NodeSource:
-
-https://github.com/nodesource/distributions#debinstall
-
-NOTE: Make sure you run this as `root` using (`sudo su`)
 
 ## Install electron dependencies
 
@@ -81,8 +72,7 @@ xset -dpms
 xset s off
 xset s noblank
 
-#unclutter &
-# foobar
+unclutter & ~/mqtt-alarm-panel-ui/mqtt-alarm-panel-ui
 ```
 
 ## Configuration

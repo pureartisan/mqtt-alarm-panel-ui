@@ -1,0 +1,8 @@
+.App {
+  &.env-production {
+    cursor: none !important;
+    * {
+      cursor: none !important;
+    }
+  }
+}

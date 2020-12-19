@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import { Info } from '@app/info';
 import { ReduxState } from '@app/redux/reducers';
-
 import { StandByService } from '@app/services/stand-by';
 
 import { Dashboard } from '@app/components/Dashboard';
 import { StandByScreen } from '@app/components/StandByScreen';
+
+import './style.scss';
 
 interface AppProps {
   standBy?: boolean
@@ -30,7 +32,7 @@ class AppComponent extends React.Component<AppProps, AppState> {
 
   render() {
     return (
-      <div className="App">
+      <div className={`App env-${Info.env}`}>
         {this.props.standBy ? (
           <StandByScreen />
         ) : (

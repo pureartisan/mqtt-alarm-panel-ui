@@ -87,7 +87,7 @@ module.exports = {
       chunkFilename: '[id].css'
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      '__BUILD_INFO_ENV__': JSON.stringify(process.env.NODE_ENV)
     }),
     new MinifyPlugin()
   ],
