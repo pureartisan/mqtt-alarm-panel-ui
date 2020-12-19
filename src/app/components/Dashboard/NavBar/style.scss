@@ -10,6 +10,12 @@
     background: white;
     border-bottom: 1px solid var(--color-mute-lt);
 
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0 1rem;
+    }
+
     .DateTime {
       margin-left: auto;
       margin-right: 1rem;

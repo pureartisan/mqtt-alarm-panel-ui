@@ -20,6 +20,7 @@ class NavBarComponent extends React.Component<NavBarProps, NavBarState> {
   render() {
     return (
       <div className="NavBar">
+        <span className="title">Smart Security</span>
         <DateTime />
       </div>
     );
