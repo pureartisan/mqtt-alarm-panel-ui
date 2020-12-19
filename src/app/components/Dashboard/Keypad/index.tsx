@@ -1,51 +1,24 @@
 import React from 'react';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
-
-import { ReduxState } from '@app/redux/reducers';
-import { AlarmService } from '@app/services/alarm';
 
 import './style.scss';
 
-const MAX_CHARS = 8;
-const MAX_CHARS_INDICATOR_DELAY = 1000; // 1 second
-
 interface KeypadProps {
-  armed?: boolean;
+  hasValue?: boolean
+  onKeyPressed?: (value: number) => void
+  onCleared?: () => void
+  onSubmitted?: () => void
 }
 
-interface KeypadState {
-  value?: string,
-  showError?: boolean
-}
+interface KeypadState {}
 
 class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
 
-  state: KeypadState = {
-    value: '',
-    showError: false
-  };
-
-  private mounted = false;
-
-  componentDidMount() {
-    this.mounted = true;
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
-  }
+  state: KeypadState = {};
 
   render() {
     return (
       <div className="Keypad">
-        <div className={classNames('display', {
-          'error': this.state.showError
-        })}>
-          <span className="displayText">
-            {this.state.value && this.state.value.split('').map(() => '*')}
-          </span>
-        </div>
         <div className="keys">
           <div className="row">
             <div className="key" onClick={() => this.handleKeyClicked(1)}>1</div>
@@ -64,83 +37,42 @@ class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
           </div>
           <div className="row">
             <div className={classNames("key clear-button", {
-              disabled: !this.state.value
+              disabled: !this.props.hasValue
             })} onClick={this.handleClearClicked}>×</div>
             <div className="key" onClick={() => this.handleKeyClicked(0)}>0</div>
             <div className={classNames("key done-button", {
-              disabled: !this.state.value
-            })} onClick={this.handleDoneClicked}>done</div>
+              disabled: !this.props.hasValue
+            })} onClick={this.handleDoneClicked}>✓</div>
           </div>
         </div>
       </div>
     );
   }
 
-  private addNumberToValue(num: number): void {
-    const curr = this.state.value || '';
-    if (curr.length >= MAX_CHARS) {
-      this.showErrorIndicator();
-    } else {
-      this.setState({
-        value: `${curr}${num}`
-      });
-    }
-  }
-
-  private showErrorIndicator(clearValue?: boolean): void {
-    if (this.mounted) {
-      const clearError = () => {
-        this.hideErrorIndicator();
-        if (clearValue) {
-          this.clearValue();
-        }
-      };
-
-      this.setState({
-        showError: true
-      },
-        () => setTimeout(clearError, MAX_CHARS_INDICATOR_DELAY)
-      );
-    }
-  }
-
-  private hideErrorIndicator(): void {
-    if (this.mounted) {
-      this.setState({
-        showError: false
-      });
-    }
-  }
-
   private handleKeyClicked = (num: number): void => {
-    this.addNumberToValue(num);
+    if (this.props.onKeyPressed) {
+      this.props.onKeyPressed(num);
+    }
   };
 
   private handleClearClicked = (): void => {
-    this.clearValue();
+    if (this.props.onCleared) {
+      this.props.onCleared();
+    }
   };
 
   private handleDoneClicked = (): void => {
-    if (this.state.value) { // only when there is a value
-      const success = AlarmService.disarm(this.state.value);
-      if (!success) {
-        this.showErrorIndicator(true);
-      }
+    if (this.props.onSubmitted) {
+      this.props.onSubmitted();
     }
   };
 
-  private clearValue(): void {
-    if (this.state.value) { // only when there is a value
-      this.setState({
-        value: ''
-      });
-    }
-  }
-
 }
 
-const mapStateToProps = (state: ReduxState, ownProps: Partial<KeypadProps>): Partial<KeypadProps> => ({
-  armed: false // TODO get from stage
-});
+// const mapStateToProps = (state: ReduxState, ownProps: Partial<KeypadProps>): Partial<KeypadProps> => ({
+//   armed: false // TODO get from stage
+// });
 
-export const Keypad = connect(mapStateToProps)(KeypadComponent);
+// export const Keypad = connect(mapStateToProps)(KeypadComponent);
+
+export { KeypadComponent as Keypad };

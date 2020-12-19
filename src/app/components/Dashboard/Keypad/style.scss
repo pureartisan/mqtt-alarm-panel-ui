@@ -10,51 +10,13 @@
     $key-bg: white;
     $row-height: calc(25% - #{$gutter}); // 4 rows of keys
 
-    $display-height: 3em;
-
-    $max-chars-transition-delay: 1s;
-
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: center;
     width: 100%;
     height: 100%;
-    padding: 0 $gutter;
-
-    .display {
-      margin: 1rem 0 $gutter 0;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-      height: calc(20% - #{$vertical-spacer});
-      border: 1px solid #c3c3c3;
-      border-radius: var(--border-radius-default);
-      background: #f5f3f3;
-      padding: $gutter;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      flex-shrink: 0;
-      transition: border-color $max-chars-transition-delay ease-in;
-
-      .displayText {
-        font-size: 4rem;
-        margin-top: 2rem;
-        transition: color $max-chars-transition-delay ease-in;
-      }
-
-      &.error {
-        transition: border-color 0s ease-in;
-        border-color: var(--color-danger);
-
-        .displayText {
-          transition: color 0s ease-in;
-          color: var(--color-danger);
-        }
-      }
-    }
+    padding: 0 0 0 $gutter;
 
     .keys {
       display: flex;
@@ -62,7 +24,7 @@
       align-items: stretch;
       justify-content: flex-start;
       flex-shrink: 0;
-      height: calc(80% - #{$vertical-spacer});
+      height: calc(100% - #{$vertical-spacer});
 
       .row {
         display: flex;
@@ -81,17 +43,18 @@
         @include button;
         width: $key-width;
         height: 100%;
-        font-size: 3.5rem;
+        font-size: 5rem;
 
         &.clear-button {
           color: var(--color-warning);
           border-color: var(--color-warning);
-          font-size: 7rem;
+          font-size: 10rem;
         }
 
         &.done-button {
           color: var(--color-success);
           border-color: var(--color-success);
+          font-weight: bold;
         }
 
         &.disabled {

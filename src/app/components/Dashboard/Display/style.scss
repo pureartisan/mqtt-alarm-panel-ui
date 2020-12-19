@@ -1,0 +1,41 @@
+.Dashboard {
+  .Display {
+
+    $gutter: 0.75rem;
+    $display-height: calc(15% - 2rem);
+    $max-chars-transition-delay: 1s;
+
+    margin: 1rem 0 $gutter 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 5rem);
+    height: $display-height;
+    border: 0.1rem solid #c3c3c3;
+    border-radius: var(--border-radius-default);
+    background: #f5f3f3;
+    padding: 0 $gutter;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex-shrink: 0;
+    transition: border-color $max-chars-transition-delay ease-in;
+
+    .display-text {
+      font-size: 4rem;
+      margin-top: 2rem;
+      transition: color $max-chars-transition-delay ease-in;
+    }
+
+    &.error {
+      transition: border-color 0s ease-in;
+      border-color: var(--color-danger);
+
+      .display-text {
+        transition: color 0s ease-in;
+        color: var(--color-danger);
+      }
+    }
+  }
+}

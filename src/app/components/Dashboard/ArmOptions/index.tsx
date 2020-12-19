@@ -15,7 +15,6 @@ class ArmOptionsComponent extends React.Component<ArmOptionsProps, ArmOptionsSta
   render() {
     return (
       <div className="ArmOptions">
-        <div className="title">System Disarmed</div>
         <div className="buttons">
           <span className="arm-button arm-home" onClick={this.handleArmHomeClicked}>Arm<br/>Now</span>
           <span className="arm-button arm-away" onClick={this.handleArmAwayClicked}>Arm<br/>Away</span>
