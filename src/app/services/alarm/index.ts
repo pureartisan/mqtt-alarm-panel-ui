@@ -5,6 +5,7 @@ import { Command, AlarmArmedState } from '@shared/models';
 
 import { setArmedStatus, setArmedPending, setAlarmTriggered } from '@app/redux/actions/armed';
 import { ConfigService } from '@app/services/config';
+import { StandByService } from '@app/services/stand-by';
 
 class AlarmService {
   init(): void {
@@ -42,6 +43,7 @@ class AlarmService {
     ipcRenderer.on(CHANNEL_ALARM_STATE_CHANGED, (event, alarmState: AlarmArmedState, data?: any) => {
       console.log('Status received from main thread:', alarmState, data);
       this.updateArmedStatus(alarmState, data);
+      StandByService.disableStandBy();
     });
   }
 
