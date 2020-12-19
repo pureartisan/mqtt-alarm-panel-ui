@@ -1,11 +1,13 @@
 import { ipcRenderer } from 'electron';
+import log from 'electron-log';
 
 import { CHANNEL_GET_CONFIG } from '@shared/constants';
 import { UiConfig } from '@shared/models';
 
 class ConfigService {
   private conf: UiConfig = {
-    stand_by_screen_delay: 90
+    stand_by_screen_delay: 90,
+    code: ''
   };
 
   init(): void {
@@ -17,12 +19,12 @@ class ConfigService {
   }
 
   private getConfigFromMainThread(): void {
-    console.log('Getting UI config from main thread');
+    log.debug('Getting UI config from main thread');
     const config = ipcRenderer.sendSync(CHANNEL_GET_CONFIG);
     try {
       this.conf = JSON.parse(config) as UiConfig;
     } catch (err) {
-      console.error('Invalid config sent by main thread', config);
+      log.error('Invalid config sent by main thread', config);
     }
   }
 

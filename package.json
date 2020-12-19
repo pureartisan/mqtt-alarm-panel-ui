@@ -37,7 +37,7 @@
       "node_modules/",
       "package.json"
     ],
-    "productName": "Alarm Panel",
+    "productName": "MQTT Alarm Panel",
     "appId": "mqtt-alarm-panel.gui",
     "directories": {
       "output": "dist"
@@ -91,6 +91,7 @@
     "classnames": "^2.2.6",
     "core-js": "^3.8.0",
     "detect-rpi": "^1.4.0",
+    "electron-log": "^4.3.1",
     "lodash": "^4.17.20",
     "mqtt": "^4.2.6",
     "react": "^16.13.1",

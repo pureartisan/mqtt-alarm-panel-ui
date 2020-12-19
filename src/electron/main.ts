@@ -1,6 +1,7 @@
 import { app, BrowserWindow, screen } from 'electron';
-import * as path from 'path';
-import * as url from 'url';
+import path from 'path';
+import url from 'url';
+import log from 'electron-log';
 
 import { IS_PI } from '@electron/utils/device';
 
@@ -8,9 +9,11 @@ let mainWindow: BrowserWindow | null;
 
 const DEV_MODE = process.env.NODE_ENV === 'development';
 
-function createWindow() {
+function createWindow(): void {
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  log.debug(`Screen size: ${width}x${height}`);
+
   mainWindow = new BrowserWindow({
     width,
     height,

@@ -1,4 +1,5 @@
 import { ipcRenderer } from 'electron';
+import log from 'electron-log';
 
 import { CHANNEL_SEND_COMMAND, CHANNEL_ALARM_STATE_CHANGED, CHANNEL_GET_INITIAL_ALARAM_STATE } from '@shared/constants';
 import { Command, AlarmArmedState } from '@shared/models';
@@ -30,18 +31,18 @@ class AlarmService {
   }
 
   private forceMainThreadToSendInitialState(): void {
-    console.log('Forcing main thread to send initial state.');
+    log.debug('Forcing main thread to send initial state.');
     ipcRenderer.send(CHANNEL_GET_INITIAL_ALARAM_STATE);
   }
 
   private sendCommand(command: Command): void {
-    console.log('Sending command to main thread:', command);
+    log.debug('Sending command to main thread:', command);
     ipcRenderer.send(CHANNEL_SEND_COMMAND, command);
   }
 
   private listenToStateChangesFromServer(): void {
     ipcRenderer.on(CHANNEL_ALARM_STATE_CHANGED, (event, alarmState: AlarmArmedState, data?: any) => {
-      console.log('Status received from main thread:', alarmState, data);
+      log.debug('Status received from main thread:', alarmState, data);
       this.updateArmedStatus(alarmState, data);
       StandByService.disableStandBy();
     });

@@ -6,6 +6,6 @@ cd $DIR/../dist
 
 for f in ./*; do
   if [ -d "$f" ]; then
-    tar -zcvf "${f%/}.tar.gz" "$f";
+    tar -zcf "${f%/}.tar.gz" "$f/**/*";
   fi
 done

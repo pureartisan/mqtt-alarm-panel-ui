@@ -29,6 +29,25 @@ https://github.com/nodesource/distributions#debinstall
 
 NOTE: Make sure you run this as `root` using (`sudo su`)
 
+## Install electron dependencies
+
+Since we are using Raspbian OS Lite (with a minimal GUI), electron (Chromium under the hood) may be missing some dependencies.
+
+The common ones encountered installed using the command below:
+
+```
+sudo apt-get install -y \
+  libatk1.0-0 \
+  libnss3 \
+  libatk-bridge2.0-0 \
+  libgtk-3-0 \
+```
+
+For a full list of possible missing dependncies, please check (here)[
+https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix].
+
+It should be easy to install those missing packages one by one (or all at once) if you want to.
+
 ## Install the application
 
 // TODO
@@ -92,7 +111,8 @@ The config file must be a valid JSON file, with the following information.
   },
   "pending_time": 60,                   // same as what is set in HA
   "delay_time": 60,                     // same as what is set in HA
-  "trigger_time": 600                   // same as what is set in HA
+  "trigger_time": 600,                  // same as what is set in HA
+  "log_level": "warn"                   // supported by `electron-log`
 }
 ```
 
@@ -103,3 +123,10 @@ NOTE:
  * `mqtt.username` (only if applicable, otherwise leave it out)
  * `mqtt.password` (only if applicable, otherwise leave it out)
  * `ui.code` can be different from what is set in HA, since the logic is purely checked in the application
+* Log levels correspond to log levels supported by (electron-log)[https://www.npmjs.com/package/electron-log] and defaults to `warn`.
+ * `error`
+ * `warn`
+ * `info`
+ * `verbose`
+ * `debug`
+ * `silly`

@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from 'fs';
 import { homedir } from 'os';
 import { resolve as pathResolve } from 'path';
 import { ipcMain } from 'electron';
+import log, { LogLevel } from 'electron-log';
 
 import { CHANNEL_GET_CONFIG } from '@shared/constants';
 import { UiConfig } from '@shared/models';
@@ -25,6 +26,7 @@ interface Config {
   pending_time?: number
   delay_time?: number
   trigger_time?: number
+  log_level: LogLevel
 }
 
 const DEFAULT_CONFIG: Config = {
@@ -34,11 +36,13 @@ const DEFAULT_CONFIG: Config = {
     command_topic: 'home/alarm/set'
   },
   ui: {
-    stand_by_screen_delay: 90
+    stand_by_screen_delay: 90,
+    code: ''
   },
   pending_time: 60,
   delay_time: 60,
-  trigger_time: 600
+  trigger_time: 600,
+  log_level: 'info'
 };
 
 class ConfigService {
@@ -90,11 +94,14 @@ class ConfigService {
   }
 
   private validateMqttConfig(): void {
-    if (!this.config?.mqtt?.host) {
+    if (!this.conf?.mqtt?.host) {
       throw Error(`MQTT host not set in '${this.confPath}`);
     }
-    if (!this.config?.pending_time) {
+    if (!this.conf?.pending_time) {
       throw Error(`Pending time not set in '${this.confPath}`);
+    }
+    if (!this.conf?.ui?.code) {
+      throw Error(`Verification 'code' not set in '${this.confPath}`);
     }
   }
 
@@ -115,7 +122,7 @@ class ConfigService {
 
   private listenToCommandsFromRenderer(): void {
     ipcMain.on(CHANNEL_GET_CONFIG, (event) => {
-      console.debug('Sending UI config to renderer', this.conf.ui);
+      log.debug('Sending UI config to renderer', this.conf.ui);
       event.returnValue = JSON.stringify(this.conf.ui);
     });
   }
