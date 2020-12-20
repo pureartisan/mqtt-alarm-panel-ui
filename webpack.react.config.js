@@ -6,6 +6,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
+const packageJson = require('./package.json');
+
 const buildPluginsList = () => {
   const plugins = [];
 
@@ -15,7 +17,9 @@ const buildPluginsList = () => {
 
   plugins.push(
     new webpack.DefinePlugin({
-      '__BUILD_INFO_ENV__': JSON.stringify(process.env.NODE_ENV)
+      '__BUILD_INFO_ENV__': JSON.stringify(process.env.NODE_ENV),
+      '__BUILD_INFO_PACKAGE_NAME__': JSON.stringify(packageJson.name),
+      '__BUILD_INFO_PACKAGE_VERSION__': JSON.stringify(packageJson.version)
     })
   );
 

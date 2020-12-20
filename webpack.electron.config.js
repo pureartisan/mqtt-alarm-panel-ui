@@ -1,6 +1,8 @@
 const path = require("path");
 const nodeExternals = require('webpack-node-externals');
 
+const packageJson = require('./package.json');
+
 module.exports = {
   resolve: {
     alias: {
@@ -42,6 +44,11 @@ module.exports = {
     path: path.resolve(__dirname, "build"),
     filename: "[name].js",
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      '__BUILD_INFO_PACKAGE_NAME__': JSON.stringify(packageJson.name),
+      '__BUILD_INFO_PACKAGE_VERSION__': JSON.stringify(packageJson.version)
+    })
+  ],
   externals: [nodeExternals()]
 };
