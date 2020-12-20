@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { ReduxState } from '@app/redux/reducers';
 import { ArmedStatus } from '@app/redux/actions/armed';
 
+import { AudioService } from '@app/services/audio';
 import { StandByService } from '@app/services/stand-by';
 
 import { DateTime } from './DateTime';
@@ -31,6 +32,7 @@ class StandByScreenComponent extends React.Component<StandByScreenProps> {
   }
 
   private handleStandByClick = () => {
+    AudioService.play('click');
     StandByService.disableStandBy();
   };
 }

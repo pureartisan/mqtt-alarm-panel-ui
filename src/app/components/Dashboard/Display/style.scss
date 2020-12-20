@@ -21,6 +21,7 @@
     text-overflow: ellipsis;
     flex-shrink: 0;
     transition: border-color $max-chars-transition-delay ease-in;
+    box-shadow: inset 0 0.1rem 0.3rem rgba(0,0,0,0.12), 0 0.1rem 0.2rem rgba(0,0,0,0.24);
 
     .display-text {
       font-size: 4rem;
