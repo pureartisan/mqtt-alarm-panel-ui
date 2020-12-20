@@ -1,3 +1,11 @@
+html {
+  font-size: 16px;
+
+  @media (min-width: 1920px) {
+    font-size: 26px;
+  }
+}
+
 body {
   background: var(--main-bg-color);
   margin: 0;

@@ -62,7 +62,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
             <path
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#fff"
               fill="#666"
               d="M38.3 51.7c1.8-2.8 4.5-4.9 7.7-5.9"
@@ -84,7 +84,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
             <path
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#fff"
               fill="#666"
               d="M36.3 58.3c0-.6.1-1.2.2-1.7"
@@ -124,7 +124,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
               d="M50 36.8V21.3"
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
               style={{
@@ -145,7 +145,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
               d="M61.9 37.1l5.1-8.9"
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
               style={{
@@ -166,7 +166,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
               d="M70.6 45.7l11.1-6.4"
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
               style={{
@@ -187,7 +187,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
               d="M29.3 45.7l-11-6.4"
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
               style={{
@@ -208,7 +208,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
               d="M73.9 57.5h10.3"
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
               style={{
@@ -229,7 +229,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
               d="M26.5 57.9H16.3"
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
               style={{
@@ -250,7 +250,7 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
               d="M38.2 37.3l-5.1-8.9"
               stroke-miterlimit="10"
               stroke-linecap="round"
-              stroke-width="2.752"
+              strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
               style={{
