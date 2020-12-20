@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { AudioService } from '@app/services/audio';
 import { AlarmService } from '@app/services/alarm';
 
 import './style.scss';
@@ -25,10 +26,12 @@ class ArmOptionsComponent extends React.Component<ArmOptionsProps, ArmOptionsSta
 
   private handleArmHomeClicked = () => {
     AlarmService.armHome();
+    AudioService.play('click');
   };
 
   private handleArmAwayClicked = () => {
     AlarmService.armAway();
+    AudioService.play('click');
   };
 
 }

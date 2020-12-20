@@ -1,4 +1,5 @@
 import UiFx from 'uifx';
+import log from 'electron-log';
 
 import errorAudio from '@app/assets/audio/error.mp3';
 import clickAudio from '@app/assets/audio/click.mp3';
@@ -19,20 +20,28 @@ class AudioService {
   }
 
   play(sound: SoundEffect): void {
-    this.getUiFx(sound)?.play();
+    try {
+      this.getUiFx(sound)?.play();
+    } catch (err) {
+      log.error(err);
+    }
   }
 
   loop(sound: Sound, volume?: number): HTMLAudioElement | undefined {
-    const audio = this.getAudio(sound);
-    if (audio) {
-      audio.addEventListener('ended', () => {
-        audio.currentTime = 0;
+    try {
+      const audio = this.getAudio(sound);
+      if (audio) {
+        audio.addEventListener('ended', () => {
+          audio.currentTime = 0;
+          audio.play();
+        }, false);
+        audio.volume = volume || 0.5;
         audio.play();
-      }, false);
-      audio.volume = volume || 0.5;
-      audio.play();
+      }
+      return audio;
+    } catch (err) {
+      log.error(err);
     }
-    return audio;
   }
 
   private loadAudioFiles(): void {
