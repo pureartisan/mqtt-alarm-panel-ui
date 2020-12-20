@@ -7,6 +7,7 @@ import { UiConfig } from '@shared/models';
 class ConfigService {
   private conf: UiConfig = {
     stand_by_screen_delay: 90,
+    siren_volume: 0.7,
     code: ''
   };
 

@@ -98,6 +98,11 @@ module.exports = {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
         use: [{ loader: 'file-loader?name=font/[name]__[hash:base64:5].[ext]' }],
         exclude: /node_modules/,
+      },
+      {
+        test: /\.(mp3)$/,
+        use: [{ loader: 'file-loader?name=mp3/[name]__[hash:base64:5].[ext]' }],
+        exclude: /node_modules/,
       }
     ],
   },

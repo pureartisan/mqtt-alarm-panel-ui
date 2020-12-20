@@ -1,0 +1,5 @@
+@import '@app/styles/helpers/mixins';
+
+.Button {
+  @include button;
+}

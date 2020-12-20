@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import { Button } from '@app/components/ui/Button';
+
 import './style.scss';
 
 interface KeypadProps {
@@ -21,28 +23,28 @@ class KeypadComponent extends React.Component<KeypadProps, KeypadState> {
       <div className="Keypad">
         <div className="keys">
           <div className="row">
-            <div className="key" onClick={() => this.handleKeyClicked(1)}>1</div>
-            <div className="key" onClick={() => this.handleKeyClicked(2)}>2</div>
-            <div className="key" onClick={() => this.handleKeyClicked(3)}>3</div>
+            <Button className="key" onClick={() => this.handleKeyClicked(1)}>1</Button>
+            <Button className="key" onClick={() => this.handleKeyClicked(2)}>2</Button>
+            <Button className="key" onClick={() => this.handleKeyClicked(3)}>3</Button>
           </div>
           <div className="row">
-            <div className="key" onClick={() => this.handleKeyClicked(4)}>4</div>
-            <div className="key" onClick={() => this.handleKeyClicked(5)}>5</div>
-            <div className="key" onClick={() => this.handleKeyClicked(6)}>6</div>
+            <Button className="key" onClick={() => this.handleKeyClicked(4)}>4</Button>
+            <Button className="key" onClick={() => this.handleKeyClicked(5)}>5</Button>
+            <Button className="key" onClick={() => this.handleKeyClicked(6)}>6</Button>
           </div>
           <div className="row">
-            <div className="key" onClick={() => this.handleKeyClicked(7)}>7</div>
-            <div className="key" onClick={() => this.handleKeyClicked(8)}>8</div>
-            <div className="key" onClick={() => this.handleKeyClicked(9)}>9</div>
+            <Button className="key" onClick={() => this.handleKeyClicked(7)}>7</Button>
+            <Button className="key" onClick={() => this.handleKeyClicked(8)}>8</Button>
+            <Button className="key" onClick={() => this.handleKeyClicked(9)}>9</Button>
           </div>
           <div className="row">
-            <div className={classNames("key clear-button", {
+            <Button className={classNames("key clear-button", {
               disabled: !this.props.hasValue
-            })} onClick={this.handleClearClicked}>×</div>
-            <div className="key" onClick={() => this.handleKeyClicked(0)}>0</div>
-            <div className={classNames("key done-button", {
+            })} onClick={this.handleClearClicked}>×</Button>
+            <Button className="key" onClick={() => this.handleKeyClicked(0)}>0</Button>
+            <Button className={classNames("key done-button", {
               disabled: !this.props.hasValue
-            })} onClick={this.handleDoneClicked}>✓</div>
+            })} onClick={this.handleDoneClicked}>✓</Button>
           </div>
         </div>
       </div>

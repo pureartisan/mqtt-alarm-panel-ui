@@ -37,6 +37,7 @@ const DEFAULT_CONFIG: Config = {
   },
   ui: {
     stand_by_screen_delay: 90,
+    siren_volume: 0.7,
     code: ''
   },
   pending_time: 60,

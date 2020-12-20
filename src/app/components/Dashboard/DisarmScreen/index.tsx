@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { AudioService } from '@app/services/audio';
 import { AlarmService } from '@app/services/alarm';
 
 import { Keypad } from '../Keypad';
@@ -80,6 +81,9 @@ class DisarmScreenComponent extends React.Component<DisarmScreenProps, DisarmScr
       },
         () => setTimeout(clearError, MAX_CHARS_INDICATOR_DELAY)
       );
+
+      // play sound
+      AudioService.play('error');
     }
   }
 

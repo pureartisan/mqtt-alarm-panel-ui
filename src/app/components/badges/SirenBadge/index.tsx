@@ -2,16 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
+import { ArmedStatus } from '@app/redux/actions/armed';
 import { padZero } from '@app/utils/strings';
+import { AudioService } from '@app/services/audio';
 
 import { SirenIcon } from '@app/components/icons/SirenIcon';
 
 import './style.scss';
 
 interface SirenBadgeProps {
+  armed?: ArmedStatus
   now?: Date
   countdown?: number
-  triggered?: boolean
   children?: React.ReactNode | React.ReactNode[]
 }
 
@@ -56,20 +58,22 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
     }
     if (this.props.now !== prevProps.now || this.state.countdownEndAt !== prevState.countdownEndAt) {
       this.calculateTimeLeft();
+      this.handleBeeping();
     }
   }
 
   render() {
+    const isTriggered = this.props.armed === 'triggered';
     return (
       <div className="SirenBadge">
         <div className="label">
           { this.props.children }
         </div>
         <div className="ring">
-          <SirenIcon animation={this.props.triggered ? 'tremble' : 'breath'} />
+          <SirenIcon animation={isTriggered ? 'tremble' : 'breath'} />
         </div>
         <div className="time-left">
-          {this.props.triggered ? (
+          {isTriggered ? (
             <span>-----</span>
           ) : (
             <TimeLeft
@@ -111,11 +115,17 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
     });
   }
 
+  private handleBeeping(): void {
+    if (this.props.armed === 'pending' && this.state.timeLeft && this.state.timeLeft % 2 === 1) {
+      AudioService.play('beep');
+    }
+  }
+
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<SirenBadgeProps>): Partial<SirenBadgeProps> => ({
   now: state.time.now,
-  triggered: state.armed.status === 'triggered'
+  armed: state.armed.status
 });
 
 export const SirenBadge = connect(mapStateToProps)(SirenBadgeComponent);
