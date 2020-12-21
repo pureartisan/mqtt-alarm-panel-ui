@@ -1,6 +1,8 @@
 import UiFx from 'uifx';
 import log from 'electron-log';
 
+import { ConfigService } from '@app/services/config';
+
 import errorAudio from '@app/assets/audio/error.mp3';
 import clickAudio from '@app/assets/audio/click.mp3';
 import beepAudio from '@app/assets/audio/beep.mp3';
@@ -49,7 +51,7 @@ class AudioService {
     this.errorFx = new UiFx(
       errorAudio,
       {
-        volume: 1, // number between 0.0 ~ 1.0
+        volume: ConfigService.config.general_volume, // number between 0.0 ~ 1.0
         throttleMs: 100
       }
     );
@@ -57,7 +59,7 @@ class AudioService {
     this.clickFx = new UiFx(
       clickAudio,
       {
-        volume: 1, // number between 0.0 ~ 1.0
+        volume: ConfigService.config.general_volume, // number between 0.0 ~ 1.0
         throttleMs: 100
       }
     );
@@ -65,7 +67,7 @@ class AudioService {
     this.beepFx = new UiFx(
       beepAudio,
       {
-        volume: 1, // number between 0.0 ~ 1.0
+        volume: ConfigService.config.general_volume, // number between 0.0 ~ 1.0
         throttleMs: 100
       }
     );
