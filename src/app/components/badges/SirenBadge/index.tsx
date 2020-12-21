@@ -10,6 +10,8 @@ import { SirenIcon } from '@app/components/icons/SirenIcon';
 
 import './style.scss';
 
+const BEEP_INTERVAL = 10; // should be an integer
+
 interface SirenBadgeProps {
   armed?: ArmedStatus
   now?: Date
@@ -116,7 +118,7 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
   }
 
   private handleBeeping(): void {
-    if (this.props.armed === 'pending' && this.state.timeLeft && this.state.timeLeft % 2 === 1) {
+    if (this.props.armed === 'pending' && this.state.timeLeft && this.state.timeLeft % BEEP_INTERVAL === 0) {
       AudioService.play('beep');
     }
   }
