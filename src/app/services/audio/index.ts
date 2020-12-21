@@ -21,9 +21,9 @@ class AudioService {
     this.loadAudioFiles();
   }
 
-  play(sound: SoundEffect): void {
+  play(sound: SoundEffect, volume?: number): void {
     try {
-      this.getUiFx(sound)?.play();
+      this.getUiFx(sound)?.play(volume);
     } catch (err) {
       log.error(err);
     }
