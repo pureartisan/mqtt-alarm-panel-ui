@@ -1,0 +1,25 @@
+@import '@app/styles/helpers/mixins';
+
+.Dashboard {
+  .VolumeButton {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;
+    z-index: 1;
+
+    .button {
+      @include button;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 100%;
+    }
+
+    .VolumeController {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      right: 0;
+    }
+  }
+}

@@ -7,6 +7,7 @@
     justify-content: space-evenly;
     width: 100%;
     height: 100%;
+    position: relative;
 
     .title {
       width: 100%;
@@ -14,6 +15,12 @@
       font-size: 7rem;
       margin-top: 3rem;
       color: var(--color-mute);
+    }
+
+    .VolumeButton {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
     }
   }
 }

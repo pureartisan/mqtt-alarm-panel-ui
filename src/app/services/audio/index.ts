@@ -23,6 +23,9 @@ class AudioService {
 
   play(sound: SoundEffect, volume?: number): void {
     try {
+      if (volume === undefined) {
+        volume = ConfigService.config.general_volume;
+      }
       this.getUiFx(sound)?.play(volume);
     } catch (err) {
       log.error(err);

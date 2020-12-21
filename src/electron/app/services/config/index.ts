@@ -58,7 +58,7 @@ class ConfigService {
 
   init(): void {
     this.loadConfig();
-    this.loadOverridingSettings();
+    this.loadOverridingUiSettings();
     this.validateConfig();
     this.listenToCommandsFromRenderer();
   }
@@ -86,8 +86,19 @@ class ConfigService {
     throw Error(`Config file not provided. Config file should exists in one of these paths: ${JSON.stringify(CONFIG_PATHS)}`);
   }
 
-  private loadOverridingSettings(): void {
-    this.config.ui.general_volume = this.store.get('ui.general_volume', this.config.ui.general_volume) as number;
+  private loadOverridingUiSettings(): void {
+    this.conf.ui = {
+      ...this.conf.ui,
+      ...this.loadSetting('general_volume')
+    };
+  }
+
+  private loadSetting(...names: Array<keyof UiConfig>): any {
+    const settings: any = {};
+    names.forEach(name => {
+      settings[name] = this.store.get(name, this.config.ui[name])
+    });
+    return settings;
   }
 
   private loadJsonFile<T>(path: string): T | null {
@@ -133,6 +144,7 @@ class ConfigService {
   private listenToCommandsFromRenderer(): void {
     ipcMain.on(CHANNEL_GET_CONFIG, (event) => {
       log.debug('Sending UI config to renderer', this.conf.ui);
+      this.loadOverridingUiSettings();
       event.returnValue = JSON.stringify(this.conf.ui);
     });
     ipcMain.on(CHANNEL_UPDATE_UI_CONFIG, <N extends keyof UiConfig>(event: any, name: N, value: UiConfig[N]) => {

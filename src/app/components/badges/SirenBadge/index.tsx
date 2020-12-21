@@ -52,6 +52,7 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
 
   componentDidMount() {
     this.calcualteCountDownEndAt();
+    this.firstPendingBeep();
   }
 
   componentWillUpdate(prevProps: SirenBadgeProps, prevState: SirenBadgeState) {
@@ -75,7 +76,7 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
           <SirenIcon animation={isTriggered ? 'tremble' : 'breath'} />
         </div>
         <div className="time-left">
-          {isTriggered ? (
+          {isTriggered || !this.state.timeLeft || this.state.timeLeft < 0 ? (
             <span>-----</span>
           ) : (
             <TimeLeft
@@ -118,7 +119,18 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
   }
 
   private handleBeeping(): void {
-    if (this.props.armed === 'pending' && this.state.timeLeft && this.state.timeLeft % BEEP_INTERVAL === 0) {
+    if (this.props.armed !== 'pending' || !this.state.timeLeft) {
+      return;
+    }
+    // NOTE: the calculation is 1 second late, need to figure this out
+    // For now, we will manually adjust this
+    if ((this.state.timeLeft - 1) % BEEP_INTERVAL === 0) {
+      AudioService.play('beep');
+    }
+  }
+
+  private firstPendingBeep(): void {
+    if (this.props.armed === 'pending') {
       AudioService.play('beep');
     }
   }

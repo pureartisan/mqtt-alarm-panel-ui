@@ -27,7 +27,8 @@ class ConfigService {
 
   private updateConfig<N extends keyof UiConfig>(name: N, value: UiConfig[N]): void {
     log.debug('Sending config update to main thread', name);
-    ipcRenderer.sendSync(CHANNEL_UPDATE_UI_CONFIG, name, value);
+    // NOTE: use `send` instead of `sendSync` as we are not expecting a response
+    ipcRenderer.send(CHANNEL_UPDATE_UI_CONFIG, name, value);
   }
 
   private getConfigFromMainThread(): void {
