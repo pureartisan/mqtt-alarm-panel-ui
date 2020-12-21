@@ -12,6 +12,6 @@ for f in ./*; do
     echo "Archiving Starting... $f"
     cd $f
     tar -zcf "../${f%/}.tar.gz" .
-    echo "Archiving DONE $f"
+    echo "Archiving DONE ${f%/}.tar.gz"
   fi
 done
