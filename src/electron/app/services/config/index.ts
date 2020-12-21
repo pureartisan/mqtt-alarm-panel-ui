@@ -2,9 +2,10 @@ import { readFileSync, existsSync } from 'fs';
 import { homedir } from 'os';
 import { resolve as pathResolve } from 'path';
 import { ipcMain } from 'electron';
+import Store from 'electron-store';
 import log, { LogLevel } from 'electron-log';
 
-import { CHANNEL_GET_CONFIG } from '@shared/constants';
+import { CHANNEL_GET_CONFIG, CHANNEL_UPDATE_UI_CONFIG } from '@shared/constants';
 import { UiConfig } from '@shared/models';
 
 const CONFIG_PATHS = [
@@ -49,6 +50,7 @@ const DEFAULT_CONFIG: Config = {
 };
 
 class ConfigService {
+  private store = new Store();
   private conf: Config = {
     ...DEFAULT_CONFIG
   } as Config;
@@ -56,7 +58,8 @@ class ConfigService {
 
   init(): void {
     this.loadConfig();
-    this.validateMqttConfig();
+    this.loadOverridingSettings();
+    this.validateConfig();
     this.listenToCommandsFromRenderer();
   }
 
@@ -83,6 +86,10 @@ class ConfigService {
     throw Error(`Config file not provided. Config file should exists in one of these paths: ${JSON.stringify(CONFIG_PATHS)}`);
   }
 
+  private loadOverridingSettings(): void {
+    this.config.ui.general_volume = this.store.get('ui.general_volume', this.config.ui.general_volume) as number;
+  }
+
   private loadJsonFile<T>(path: string): T | null {
     try {
       if (!existsSync(path)) {
@@ -96,7 +103,7 @@ class ConfigService {
     }
   }
 
-  private validateMqttConfig(): void {
+  private validateConfig(): void {
     if (!this.conf?.mqtt?.host) {
       throw Error(`MQTT host not set in '${this.confPath}`);
     }
@@ -127,6 +134,10 @@ class ConfigService {
     ipcMain.on(CHANNEL_GET_CONFIG, (event) => {
       log.debug('Sending UI config to renderer', this.conf.ui);
       event.returnValue = JSON.stringify(this.conf.ui);
+    });
+    ipcMain.on(CHANNEL_UPDATE_UI_CONFIG, <N extends keyof UiConfig>(event: any, name: N, value: UiConfig[N]) => {
+      log.debug('Updating UI config:', name);
+      this.store.set(name, value);
     });
   }
 

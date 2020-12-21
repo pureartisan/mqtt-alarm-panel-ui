@@ -1,22 +1,33 @@
 import { ipcRenderer } from 'electron';
 import log from 'electron-log';
 
-import { CHANNEL_GET_CONFIG } from '@shared/constants';
+import { CHANNEL_GET_CONFIG, CHANNEL_UPDATE_UI_CONFIG } from '@shared/constants';
 import { UiConfig } from '@shared/models';
 
 class ConfigService {
   private conf: UiConfig = {
     stand_by_screen_delay: 90,
     siren_volume: 0.7,
+    general_volume: 0.3,
     code: ''
   };
+
+  get config(): UiConfig {
+    return this.conf;
+  }
 
   init(): void {
     this.getConfigFromMainThread();
   }
 
-  get config(): UiConfig {
-    return this.conf;
+  saveConfig<N extends keyof UiConfig>(name: N, value: UiConfig[N]): void {
+    this.conf[name] = value;
+    this.updateConfig(name, value);
+  }
+
+  private updateConfig<N extends keyof UiConfig>(name: N, value: UiConfig[N]): void {
+    log.debug('Sending config update to main thread', name);
+    ipcRenderer.sendSync(CHANNEL_UPDATE_UI_CONFIG, name, value);
   }
 
   private getConfigFromMainThread(): void {
