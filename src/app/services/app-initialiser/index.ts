@@ -1,3 +1,7 @@
+import log from 'electron-log';
+
+import { Info } from '@app/info';
+
 import { TimeService } from '@app/services/time';
 import { AlarmService } from '@app/services/alarm';
 import { ConfigService } from '@app/services/config';
@@ -5,10 +9,15 @@ import { AudioService } from '@app/services/audio';
 
 class AppInitialiser {
   init () {
+    this.logVersion();
     TimeService.init();
     AlarmService.init();
     ConfigService.init();
     AudioService.init();
+  }
+
+  private logVersion(): void {
+    log.info('Version [Renderer]:', `${Info.name} ${Info.version}`);
   }
 }
 
