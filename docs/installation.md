@@ -88,6 +88,7 @@ The config file must be a valid JSON file, with the following information.
 ```
 {
   "mqtt": {
+		"client_id": "mqtt-alarm-panel-ui", // MQTT client id
     "host": "192.168.178.225",          // MQTT broker host
     "port": "1883",                     // MQTT broke port
     "username": "my-mqtt-user",         // MQTT username, if applicable
@@ -97,6 +98,9 @@ The config file must be a valid JSON file, with the following information.
   },
   "ui": {
     "stand_by_screen_delay": 90,        // when to show the screensaver
+		"siren_volume": 0.7,                // volume for siren
+		"general_volume": 0.3,              // general UI feedback volume
+		"general_volume_max": 1,            // max volume for feedback
     "code": "1234"                      // the verification code
   },
   "pending_time": 60,                   // same as what is set in HA

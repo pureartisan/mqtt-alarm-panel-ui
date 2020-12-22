@@ -7,6 +7,7 @@ import log, { LogLevel } from 'electron-log';
 
 import { CHANNEL_GET_CONFIG, CHANNEL_UPDATE_UI_CONFIG } from '@shared/constants';
 import { UiConfig } from '@shared/models';
+import { Info } from '@electron/info';
 
 const CONFIG_PATHS = [
   pathResolve('./config.json'),
@@ -20,6 +21,7 @@ interface Config {
   mqtt: {
     host?: string
     port: string
+    client_id?: string
     username?: string
     password?: string
     state_topic: string
@@ -34,6 +36,7 @@ interface Config {
 const DEFAULT_CONFIG: Config = {
   mqtt: {
     port: '1883',
+    client_id: Info.name,
     state_topic: 'home/alarm',
     command_topic: 'home/alarm/set'
   },

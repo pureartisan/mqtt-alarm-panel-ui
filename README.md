@@ -17,19 +17,9 @@ NOTE: At the moment, this application doesn't support the additional features su
 
 ## Setup Instructions
 
-Follow the software setup (here)[./docs/installation.md].
+Follow the software setup (here)[docs/installation.md].
 
 
 ## Development
 
-The renderer and main threads need to be run in two separate consoles.
-
-Renderer:
-```
-npm run dev:react
-```
-
-Main thread:
-```
-npm run dev:electron
-```
+Follow the development instructions (here)[docs/development.md].

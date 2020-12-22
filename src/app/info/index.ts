@@ -1,6 +1,6 @@
-declare const __BUILD_INFO_ENV__: String;
-declare const __BUILD_INFO_PACKAGE_NAME__: String;
-declare const __BUILD_INFO_PACKAGE_VERSION__: String;
+declare const __BUILD_INFO_ENV__: string;
+declare const __BUILD_INFO_PACKAGE_NAME__: string;
+declare const __BUILD_INFO_PACKAGE_VERSION__: string;
 
 export const Info = Object.freeze({
   env: __BUILD_INFO_ENV__,

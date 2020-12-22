@@ -1,5 +1,5 @@
-declare const __BUILD_INFO_PACKAGE_NAME__: String;
-declare const __BUILD_INFO_PACKAGE_VERSION__: String;
+declare const __BUILD_INFO_PACKAGE_NAME__: string;
+declare const __BUILD_INFO_PACKAGE_VERSION__: string;
 
 export const Info = Object.freeze({
   name: __BUILD_INFO_PACKAGE_NAME__,

@@ -33,7 +33,9 @@ class MqttService {
 
   private connectToBroker(): void {
     const brokerUrl = `mqtt://${ConfigService.config.mqtt.host}:${ConfigService.config.mqtt.port}`;
-    const opts: IClientOptions = {};
+    const opts: IClientOptions = {
+      clientId: ConfigService.config.mqtt.client_id
+    };
     if (ConfigService.config.mqtt.username) {
       opts.username = ConfigService.config.mqtt.username;
       opts.password = ConfigService.config.mqtt.password;
