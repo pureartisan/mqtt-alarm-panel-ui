@@ -58,9 +58,7 @@
         }
 
         &.disabled {
-          background: var(--color-mute-lt);
-          color: var(--color-mute);
-          border-color: var(--color-mute);
+          color: black;
         }
       }
     }

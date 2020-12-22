@@ -9,6 +9,7 @@ class ConfigService {
     stand_by_screen_delay: 90,
     siren_volume: 0.7,
     general_volume: 0.3,
+    general_volume_max: 1,
     code: ''
   };
 
@@ -35,7 +36,10 @@ class ConfigService {
     log.debug('Getting UI config from main thread');
     const config = ipcRenderer.sendSync(CHANNEL_GET_CONFIG);
     try {
-      this.conf = JSON.parse(config) as UiConfig;
+      this.conf = {
+        ...this.conf,
+        ...JSON.parse(config) as UiConfig
+      };
     } catch (err) {
       log.error('Invalid config sent by main thread', config);
     }

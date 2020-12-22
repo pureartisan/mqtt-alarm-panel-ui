@@ -11,11 +11,12 @@
       font-size: 3rem;
       font-weight: bold;
       margin-left: 1rem;
+      color: white;
     }
 
     .date {
       font-size: 2rem;
-      color: var(--color-mute);
+      color: rgba(white, 0.2);
     }
   }
 }

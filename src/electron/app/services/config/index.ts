@@ -41,6 +41,7 @@ const DEFAULT_CONFIG: Config = {
     stand_by_screen_delay: 90,
     siren_volume: 0.7,
     general_volume: 0.3,
+    general_volume_max: 1,
     code: ''
   },
   pending_time: 60,

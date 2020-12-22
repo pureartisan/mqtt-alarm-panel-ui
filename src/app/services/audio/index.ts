@@ -24,9 +24,12 @@ class AudioService {
   play(sound: SoundEffect, volume?: number): void {
     try {
       if (volume === undefined) {
-        volume = ConfigService.config.general_volume;
+        volume = ConfigService.config.general_volume * ConfigService.config.general_volume_max;
       }
-      this.getUiFx(sound)?.play(volume);
+      // NOTE: Check volume because of bug: https://github.com/wle8300/uifx/issues/24
+      if (volume) {
+        this.getUiFx(sound)?.play(volume);
+      }
     } catch (err) {
       log.error(err);
     }
@@ -54,7 +57,6 @@ class AudioService {
     this.errorFx = new UiFx(
       errorAudio,
       {
-        volume: ConfigService.config.general_volume, // number between 0.0 ~ 1.0
         throttleMs: 100
       }
     );
@@ -62,7 +64,6 @@ class AudioService {
     this.clickFx = new UiFx(
       clickAudio,
       {
-        volume: ConfigService.config.general_volume, // number between 0.0 ~ 1.0
         throttleMs: 100
       }
     );
@@ -70,7 +71,6 @@ class AudioService {
     this.beepFx = new UiFx(
       beepAudio,
       {
-        volume: ConfigService.config.general_volume, // number between 0.0 ~ 1.0
         throttleMs: 100
       }
     );

@@ -10,6 +10,7 @@ export type AlarmArmedState = 'disarmed' |
 export interface UiConfig {
   code: string
   stand_by_screen_delay: number
-  siren_volume: number,
+  siren_volume: number
   general_volume: number
+  general_volume_max: number
 }

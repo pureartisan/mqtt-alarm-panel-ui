@@ -10,7 +10,7 @@ import { Display } from '../Display';
 import './style.scss';
 
 const MAX_CHARS = 8;
-const MAX_CHARS_INDICATOR_DELAY = 1000; // 1 second
+const ERROR_INDICATOR_DELAY = 1000; // 1 second
 
 interface DisarmScreenProps {}
 
@@ -69,17 +69,17 @@ class DisarmScreenComponent extends React.Component<DisarmScreenProps, DisarmScr
 
   private showErrorIndicator(clearValue?: boolean): void {
     if (this.mounted) {
-      const clearError = () => {
-        this.hideErrorIndicator();
-        if (clearValue) {
-          this.clearValue();
-        }
-      };
-
       this.setState({
         showError: true
       },
-        () => setTimeout(clearError, MAX_CHARS_INDICATOR_DELAY)
+        () => {
+          setTimeout(
+            () => this.hideErrorIndicator()
+          , ERROR_INDICATOR_DELAY);
+          if (clearValue) {
+            this.clearValue();
+          }
+        }
       );
 
       // play sound

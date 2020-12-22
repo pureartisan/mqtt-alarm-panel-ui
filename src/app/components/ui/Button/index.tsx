@@ -50,7 +50,9 @@ class ButtonComponent extends React.Component<ButtonProps, ButtonState> {
     if (this.props.onClick) {
       this.props.onClick();
     }
-    AudioService.play('click');
+    if (!this.props.disabled) {
+      AudioService.play('click');
+    }
   };
 
 }
