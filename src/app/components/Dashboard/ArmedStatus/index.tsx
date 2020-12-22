@@ -9,6 +9,7 @@ import { ShieldBadge } from '@app/components/badges/ShieldBadge';
 import { SirenBadge } from '@app/components/badges/SirenBadge';
 
 import './style.scss';
+import { ConfigService } from '@app/services/config';
 
 interface ArmedStatusProps {
   prevStatus?: AlarmArmedStatus
@@ -17,6 +18,16 @@ interface ArmedStatusProps {
 }
 
 interface ArmedStatusState {}
+
+const TriggeredMessage = () => {
+  const parts = ConfigService.config.triggered_message?.split(/\r\n|\n|\r/gm) || [];
+  return parts.map((part, index) => (
+    <React.Fragment key={`${index}`}>
+      {index > 0 && <br/>}
+      {part}
+    </React.Fragment>
+  ));
+};
 
 class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatusState> {
 
@@ -38,7 +49,7 @@ class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatus
         {showSiren && (
           <SirenBadge countdown={this.props.countdown}>
             {isTriggered ? (
-              <React.Fragment>Informing<br/>Police</React.Fragment>
+              <TriggeredMessage />
             ) : (
               <React.Fragment>Please<br/>Disarm</React.Fragment>
             )}

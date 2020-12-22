@@ -13,4 +13,5 @@ export interface UiConfig {
   siren_volume: number
   general_volume: number
   general_volume_max: number
+  triggered_message: string
 }

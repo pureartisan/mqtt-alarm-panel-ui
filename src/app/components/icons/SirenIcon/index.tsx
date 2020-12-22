@@ -60,8 +60,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
             }}
           >
             <path
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#fff"
               fill="#666"
@@ -82,8 +82,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
             }}
           >
             <path
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#fff"
               fill="#666"
@@ -122,8 +122,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
           >
             <path
               d="M50 36.8V21.3"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
@@ -143,8 +143,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
           >
             <path
               d="M61.9 37.1l5.1-8.9"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
@@ -164,8 +164,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
           >
             <path
               d="M70.6 45.7l11.1-6.4"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
@@ -185,8 +185,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
           >
             <path
               d="M29.3 45.7l-11-6.4"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
@@ -206,8 +206,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
           >
             <path
               d="M73.9 57.5h10.3"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
@@ -227,8 +227,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
           >
             <path
               d="M26.5 57.9H16.3"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#c33737"
               fill="none"
@@ -248,8 +248,8 @@ export const SirenIcon = ({ animation, fill1, fill2, fill3 }: SirenIconProps) =>
           >
             <path
               d="M38.2 37.3l-5.1-8.9"
-              stroke-miterlimit="10"
-              stroke-linecap="round"
+              strokeMiterlimit="10"
+              strokeLinecap="round"
               strokeWidth="2.752"
               stroke="#c33737"
               fill="none"

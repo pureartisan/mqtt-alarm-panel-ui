@@ -10,6 +10,7 @@ class ConfigService {
     siren_volume: 0.7,
     general_volume: 0.3,
     general_volume_max: 1,
+    triggered_message: 'Informing\nPolice',
     code: ''
   };
 
