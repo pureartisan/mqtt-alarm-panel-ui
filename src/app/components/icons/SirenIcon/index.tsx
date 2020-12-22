@@ -2,7 +2,7 @@ import React from 'react';
 
 import './style.scss';
 
-type Animation = 'breath' | 'tremble';
+type Animation = 'breath' | 'tremble' | 'none';
 
 interface SirenIconProps {
   animation?: Animation

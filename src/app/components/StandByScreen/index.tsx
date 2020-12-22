@@ -8,6 +8,8 @@ import { ArmedStatus } from '@app/redux/actions/armed';
 import { AudioService } from '@app/services/audio';
 import { StandByService } from '@app/services/stand-by';
 
+import { ShieldBadge } from '@app/components/badges/ShieldBadge';
+
 import { DateTime } from './DateTime';
 
 import './style.scss';
@@ -27,6 +29,9 @@ class StandByScreenComponent extends React.Component<StandByScreenProps> {
         onClick={this.handleStandByClick}
       >
         <DateTime />
+        {this.props.armed && (
+          <ShieldBadge animation={false} />
+        )}
       </div>
     );
   }

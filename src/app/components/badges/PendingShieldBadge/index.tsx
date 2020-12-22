@@ -45,9 +45,11 @@ export class PendingShieldBadgeComponent extends React.Component<PendingShieldBa
   render() {
     return (
       <div className="PendingShieldBadge">
-        <div className="label">
-          { this.props.children }
-        </div>
+        {this.props.children && (
+          <div className="label">
+            { this.props.children }
+          </div>
+        )}
         <div className="ring">
           <ShieldIcon
             fill1={'var(--color-warning)'}

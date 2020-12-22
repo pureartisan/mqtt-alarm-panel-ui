@@ -69,9 +69,11 @@ export class SirenBadgeComponent extends React.Component<SirenBadgeProps, SirenB
     const isTriggered = this.props.armed === 'triggered';
     return (
       <div className="SirenBadge">
-        <div className="label">
-          { this.props.children }
-        </div>
+        {this.props.children && (
+          <div className="label">
+            { this.props.children }
+          </div>
+        )}
         <div className="ring">
           <SirenIcon animation={isTriggered ? 'tremble' : 'breath'} />
         </div>

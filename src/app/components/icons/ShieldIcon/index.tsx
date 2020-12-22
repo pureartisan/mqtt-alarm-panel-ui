@@ -2,13 +2,16 @@ import React from 'react';
 
 import './style.scss';
 
+type Animation = 'breath' | 'none';
+
 interface ShieldIconProps {
+  animation?: Animation
   fill1?: string
   fill2?: string
   fill3?: string
 }
 
-export const ShieldIcon = ({ fill1, fill2, fill3 }: ShieldIconProps) => (
+export const ShieldIcon = ({ fill1, fill2, fill3, animation }: ShieldIconProps) => (
   <svg
     xmlSpace="preserve"
     viewBox="0 0 100 100"
@@ -37,7 +40,7 @@ export const ShieldIcon = ({ fill1, fill2, fill3 }: ShieldIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'scale(0.91)',
-              animation: '1.85185s linear -1.23457s infinite normal forwards running icon-shield-breath'
+              animation: `1.85185s linear -1.23457s infinite normal forwards running icon-shield-${animation}`
             }}
           >
             <path
@@ -58,7 +61,7 @@ export const ShieldIcon = ({ fill1, fill2, fill3 }: ShieldIconProps) => (
                   style={{
                     transformOrigin: '50px 50px',
                     transform: 'scale(0.91)',
-                    animation: '1.85185s linear -1.54321s infinite normal forwards running icon-shield-breath'
+                    animation: `1.85185s linear -1.54321s infinite normal forwards running icon-shield-${animation}`
                   }}
                 >
                   <path d="M46 69.1L28.8 51.9l5.6-5.6L46 58l19.6-19.6 5.6 5.6z"
@@ -77,7 +80,7 @@ export const ShieldIcon = ({ fill1, fill2, fill3 }: ShieldIconProps) => (
             style={{
               transformOrigin: '50px 50px',
               transform: 'scale(0.91)',
-              animation: '1.85185s linear -1.85185s infinite normal forwards running icon-shield-breath'
+              animation: `1.85185s linear -1.85185s infinite normal forwards running icon-shield-${animation}`
             }}
           >
             <path
@@ -97,5 +100,6 @@ export const ShieldIcon = ({ fill1, fill2, fill3 }: ShieldIconProps) => (
 ShieldIcon.defaultProps = {
   fill1: '#0da035',
   fill2: '#ffffff',
-  fill3: '#8bd673'
+  fill3: '#8bd673',
+  animation: 'breath'
 } as ShieldIconProps;
