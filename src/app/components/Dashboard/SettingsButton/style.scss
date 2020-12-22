@@ -1,7 +1,7 @@
 @import '@app/styles/helpers/mixins';
 
 .Dashboard {
-  .VolumeButton {
+  .SettingsButton {
     display: flex;
     flex-direction: row;
     align-items: baseline;
@@ -13,9 +13,13 @@
       width: 5rem;
       height: 5rem;
       border-radius: 100%;
+
+      svg {
+        transform: scale(0.8);
+      }
     }
 
-    .VolumeController {
+    .SettingsPanel {
       position: absolute;
       z-index: 10;
       top: 0;

@@ -1,0 +1,18 @@
+@import '@app/styles/helpers/mixins';
+
+.Dashboard {
+  .VolumeBadge {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;
+    z-index: 1;
+
+    .button {
+      @include button;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 100%;
+    }
+  }
+}

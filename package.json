@@ -24,9 +24,9 @@
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
     "dist:pi": "npm run build && electron-builder --armv7l --linux deb",
-    "dist:pi:64": "npm run build && electron-builder --arm64 --linux deb",
+    "dist:pi:64": "cross-env USE_SYSTEM_FPM=true npm run build && electron-builder --arm64 --linux deb",
     "pack:pi": "npm run build && electron-builder --dir --armv7l --linux deb",
-    "pack:pi:64": "npm run build && electron-builder --dir --arm64 --linux deb",
+    "pack:pi:64": "cross-env USE_SYSTEM_FPM=true npm run build && electron-builder --dir --arm64 --linux deb",
     "lint": "tslint 'src/**/*.{ts,tsx,js}'",
     "lint:fix": "npm run lint -- --fix"
   },

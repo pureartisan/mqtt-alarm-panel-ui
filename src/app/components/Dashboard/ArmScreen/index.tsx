@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
 
-import { VolumeButton } from '../VolumeButton';
+import { SettingsButton } from '../SettingsButton';
 import { ArmOptions } from '../ArmOptions';
 
 import './style.scss';
@@ -21,7 +21,7 @@ class ArmScreenComponent extends React.Component<ArmScreenProps, ArmScreenState>
       <div className="ArmScreen">
         <div className="title">System<br/>Disarmed</div>
         <ArmOptions />
-        <VolumeButton />
+        <SettingsButton />
       </div>
     );
   }

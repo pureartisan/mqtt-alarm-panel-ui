@@ -3,20 +3,23 @@ import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
 
-import './style.scss';
+import { VolumeBadge } from '@app/components/badges/VolumeBadge';
 
-interface VolumeControllerProps {
+import './style.scss';
+import { AudioService } from '@app/services/audio';
+
+interface SettingsPanelProps {
   volume?: number
   onClosed?: (volume?: number) => void
 }
 
-interface VolumeControllerState {
+interface SettingsPanelState {
   value?: number
 }
 
-class VolumeControllerComponent extends React.Component<VolumeControllerProps, VolumeControllerState> {
+class SettingsPanelComponent extends React.Component<SettingsPanelProps, SettingsPanelState> {
 
-  state: VolumeControllerState = {
+  state: SettingsPanelState = {
     value: this.props.volume
   };
 
@@ -30,7 +33,7 @@ class VolumeControllerComponent extends React.Component<VolumeControllerProps, V
     document.removeEventListener('click', this.handleAllClicks, false);
   }
 
-  componentDidUpdate(prevProps: VolumeControllerProps): void {
+  componentDidUpdate(prevProps: SettingsPanelProps): void {
     if (this.props.volume !== prevProps.volume) {
       this.setState({
         value: this.props.volume
@@ -40,7 +43,7 @@ class VolumeControllerComponent extends React.Component<VolumeControllerProps, V
 
   render() {
     return (
-      <div className="VolumeController" ref={this.node}>
+      <div className="SettingsPanel" ref={this.node}>
         <input
           type="range"
           min="0"
@@ -49,9 +52,12 @@ class VolumeControllerComponent extends React.Component<VolumeControllerProps, V
           value={this.state.value || 0}
           onChange={this.handleInputChanged}
         />
-        <span className="percentage">
-          {Math.round((this.state.value || 0) * 100)}%
-        </span>
+        <div className="volume-wrapper">
+          <VolumeBadge volume={this.state.value} />
+          <span className="percentage">
+            {Math.round((this.state.value || 0) * 100)}%
+          </span>
+        </div>
       </div>
     );
   }
@@ -67,17 +73,19 @@ class VolumeControllerComponent extends React.Component<VolumeControllerProps, V
   };
 
   private handleInputChanged = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const volume = event?.target?.valueAsNumber;
+    AudioService.play('click', volume);
     this.setState({
-      value: event?.target?.valueAsNumber
+      value: volume
     });
   }
 
 }
 
-// const mapStateToProps = (state: ReduxState, ownProps: Partial<VolumeControllerProps>): Partial<VolumeControllerProps> => ({
+// const mapStateToProps = (state: ReduxState, ownProps: Partial<SettingsPanelProps>): Partial<SettingsPanelProps> => ({
 //   now: state.time.now
 // });
 
-// export const VolumeController = connect(mapStateToProps)(VolumeControllerComponent);
+// export const SettingsPanel = connect(mapStateToProps)(SettingsPanelComponent);
 
-export { VolumeControllerComponent as VolumeController };
+export { SettingsPanelComponent as SettingsPanel };

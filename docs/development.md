@@ -31,3 +31,17 @@ Main thread:
 ```
 npm run dev:electron
 ```
+
+## Build the Distribution
+
+Due to an issue with FPM on 64-bit, I had to setup Ruby/GEM and use a working version of FPM. I used this [workaround](https://github.com/electron-userland/electron-builder/issues/3901#issuecomment-499121694)
+
+Install Ruby/Gem:
+```
+sudo apt-get install -y ruby ruby-dev rubygems build-essential
+```
+
+Install FPM:
+```
+sudo gem install --no-document fpm
+```

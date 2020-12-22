@@ -1,5 +1,5 @@
 .Dashboard {
-  .VolumeController {
+  .SettingsPanel {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,10 +38,25 @@
       }
     }
 
-    .percentage {
-      font-size: 3rem;
+    .volume-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 100%;
       margin-top: 3rem;
-      color: var(--color-mute-lt);
+
+      .VolumeBadge {
+        width: 5rem;
+        height: 5rem;
+      }
+
+      .percentage {
+        font-size: 3rem;
+        color: var(--color-mute-lt);
+        margin-left: auto;
+      }
     }
+
   }
 }
