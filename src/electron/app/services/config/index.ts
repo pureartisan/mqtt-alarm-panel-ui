@@ -10,8 +10,8 @@ import { UiConfig } from '@shared/models';
 
 const CONFIG_PATHS = [
   pathResolve('./config.json'),
-  pathResolve(homedir(), '.config/mqtt-alarm-panel-ui/config.json'),
   pathResolve(homedir(), '.mqtt-alarm-panel-ui/config.json'),
+  pathResolve(homedir(), '.config/mqtt-alarm-panel-ui/config.json'),
   pathResolve('/etc/mqtt-alarm-panel-ui/config.json')
 ];
 
