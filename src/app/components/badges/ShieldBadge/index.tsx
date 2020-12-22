@@ -21,3 +21,7 @@ export const ShieldBadge = (props: ShieldBadgeProps) => (
     </div>
   </div>
 );
+
+ShieldBadge.defaultProps = {
+  animation: true
+} as ShieldBadgeProps;
