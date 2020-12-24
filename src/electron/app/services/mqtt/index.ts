@@ -7,10 +7,13 @@ import { Command, AlarmArmedState } from '@shared/models';
 
 import { ConfigService } from '@electron/services/config';
 
+const RECONNECT_DELAY = 10000; // 10 seconds
+
 class MqttService {
   private mqttClient?: MqttClient;
   private mainWindow?: BrowserWindow;
   private lastAlarmState?: AlarmArmedState;
+  private reconnectTimeout?: NodeJS.Timeout;
 
   init(mainWindow: BrowserWindow): void {
     this.mainWindow = mainWindow;
@@ -49,6 +52,7 @@ class MqttService {
     this.mqttClient.on('close', () => {
       log.debug("MQTT connection closed");
       this.mqttClient?.end();
+      this.reconnectToMqttBrokerWithDelay();
     });
   }
 
@@ -86,6 +90,16 @@ class MqttService {
     // remember the last state
     this.lastAlarmState = state;
     this.mainWindow?.webContents.send(CHANNEL_ALARM_STATE_CHANGED, state, data);
+  }
+
+  private reconnectToMqttBrokerWithDelay(): void {
+    if (this.reconnectTimeout) {
+      clearTimeout(this.reconnectTimeout);
+    }
+    this.reconnectTimeout = setTimeout(() => {
+      log.debug('Reconnecting to MQTT broker...');
+      this.mqttClient?.reconnect();
+    }, RECONNECT_DELAY);
   }
 }
 
