@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import { Provider } from "react-redux";
 
-import { store } from "./redux/store";
+import { store } from "@app/redux/store";
 
-import { App } from './components/App';
-import { AppInitialiser } from './services/app-initialiser';
+import { App } from '@app/components/App';
+import { AppInitialiser } from '@app/services/app-initialiser';
+import { initRootElements } from '@app/utils/root';
 
 import './styles/main.scss';
 
-const mainElement = document.createElement('div');
-document.body.appendChild(mainElement);
+const { appRoot } = initRootElements();
 
 AppInitialiser.init();
 
@@ -18,5 +18,5 @@ ReactDom.render(
   <Provider store={store}>
     <App />
   </Provider>,
-  mainElement
+  appRoot
 );

@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
+import { ConfigService } from '@app/services/config';
 
+import { VideoButton } from '../VideoButton';
 import { SettingsButton } from '../SettingsButton';
 import { ArmOptions } from '../ArmOptions';
 
@@ -22,6 +24,9 @@ class ArmScreenComponent extends React.Component<ArmScreenProps, ArmScreenState>
         <div className="title">System<br/>Disarmed</div>
         <ArmOptions />
         <SettingsButton />
+        {ConfigService.config.video_stream?.url && (
+          <VideoButton />
+        )}
       </div>
     );
   }

@@ -6,25 +6,25 @@ import { ReduxState } from '@app/redux/reducers';
 import { ConfigService } from '@app/services/config';
 import { AudioService } from '@app/services/audio';
 
-import { SettingsPanel } from '../SettingsPanel';
+import { VideoPanel } from '../VideoPanel';
 
 import './style.scss';
 
-interface SettingsButtonProps {}
+interface VideoButtonProps {}
 
-interface SettingsButtonState {
+interface VideoButtonState {
   showPanel: boolean
 }
 
-class SettingsButtonComponent extends React.Component<SettingsButtonProps, SettingsButtonState> {
+class VideoButtonComponent extends React.Component<VideoButtonProps, VideoButtonState> {
 
-  state: SettingsButtonState = {
+  state: VideoButtonState = {
     showPanel: false
   };
 
   render() {
     return (
-      <div className="SettingsButton">
+      <div className="VideoButton">
         <div className="button" onClick={this.handleButtonClicked}>
           <svg
             viewBox="0 0 100 100"
@@ -72,9 +72,8 @@ class SettingsButtonComponent extends React.Component<SettingsButtonProps, Setti
           </svg>
         </div>
         {this.state.showPanel && (
-          <SettingsPanel
-            volume={ConfigService.config.general_volume}
-            onClosed={this.handleVolumeControllerClosed}
+          <VideoPanel
+            onClosed={this.handlePanelClosed}
           />
         )}
       </div>
@@ -88,8 +87,7 @@ class SettingsButtonComponent extends React.Component<SettingsButtonProps, Setti
     });
   };
 
-  private handleVolumeControllerClosed = (volume?: number): void => {
-    ConfigService.saveConfig('general_volume', volume || 0);
+  private handlePanelClosed = (volume?: number): void => {
     AudioService.play('click');
     this.setState({
       showPanel: false
@@ -98,10 +96,10 @@ class SettingsButtonComponent extends React.Component<SettingsButtonProps, Setti
 
 }
 
-// const mapStateToProps = (state: ReduxState, ownProps: Partial<SettingsButtonProps>): Partial<SettingsButtonProps> => ({
+// const mapStateToProps = (state: ReduxState, ownProps: Partial<VideoButtonProps>): Partial<VideoButtonProps> => ({
 //   volume: 0
 // });
 
-// export const SettingsButton = connect(mapStateToProps)(SettingsButtonComponent);
+// export const VideoButton = connect(mapStateToProps)(VideoButtonComponent);
 
-export { SettingsButtonComponent as SettingsButton }
+export { VideoButtonComponent as VideoButton }

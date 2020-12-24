@@ -1,14 +1,17 @@
-.Dashboard {
+.Modal {
   .SettingsPanel {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    width: 20rem;
-    height: 10rem;
-    background: var(--main-face-color);
-    box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.25), 0 0.5rem 0.5rem rgba(0,0,0,0.22);
+    height: 100%;
+    padding: 0 2rem;
+
+    .title {
+      margin-bottom: 4rem;
+      color: white;
+      font-size: 2rem;
+    }
 
     input {
       width: 100%;

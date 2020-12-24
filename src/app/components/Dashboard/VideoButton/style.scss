@@ -1,0 +1,29 @@
+@import '@app/styles/helpers/mixins';
+
+.Dashboard {
+  .VideoButton {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-end;
+    z-index: 1;
+
+    .button {
+      @include button;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 100%;
+
+      svg {
+        transform: scale(0.8);
+      }
+    }
+
+    .VideoPanel {
+      position: absolute;
+      z-index: 10;
+      top: 0;
+      right: 0;
+    }
+  }
+}

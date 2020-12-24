@@ -10,11 +10,23 @@ body {
   background: var(--main-bg-color);
   margin: 0;
   padding: 0;
+  position: relative;
 
   font-family: 'Share Tech Mono', monospace;
   font-size: 1em;
 
   * {
     user-select: none;
+  }
+
+  #app-root {
+    z-index: 0;
+  }
+
+  #modal-root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
   }
 }

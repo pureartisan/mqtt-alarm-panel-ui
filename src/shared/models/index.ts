@@ -14,4 +14,9 @@ export interface UiConfig {
   general_volume: number
   general_volume_max: number
   triggered_message: string
+  video_stream?: {
+    url: string
+    username?: string
+    password?: string
+  }
 }

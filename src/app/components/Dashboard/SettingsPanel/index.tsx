@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { ReduxState } from '@app/redux/reducers';
+import { AudioService } from '@app/services/audio';
 
+import { Modal } from '@app/components/ui/Modal';
 import { VolumeBadge } from '@app/components/badges/VolumeBadge';
 
 import './style.scss';
-import { AudioService } from '@app/services/audio';
 
 interface SettingsPanelProps {
   volume?: number
@@ -23,16 +24,6 @@ class SettingsPanelComponent extends React.Component<SettingsPanelProps, Setting
     value: this.props.volume
   };
 
-  private node: React.RefObject<HTMLDivElement> = React.createRef();
-
-  componentDidMount() {
-    document.addEventListener('click', this.handleAllClicks, false);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleAllClicks, false);
-  }
-
   componentDidUpdate(prevProps: SettingsPanelProps): void {
     if (this.props.volume !== prevProps.volume) {
       this.setState({
@@ -43,30 +34,31 @@ class SettingsPanelComponent extends React.Component<SettingsPanelProps, Setting
 
   render() {
     return (
-      <div className="SettingsPanel" ref={this.node}>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          step="0.1"
-          value={this.state.value || 0}
-          onChange={this.handleInputChanged}
-        />
-        <div className="volume-wrapper">
-          <VolumeBadge volume={this.state.value} />
-          <span className="percentage">
-            {Math.round((this.state.value || 0) * 100)}%
-          </span>
+      <Modal
+        title="Volume Control"
+        onClickedOutside={this.handleClickedOutsideModal}
+      >
+        <div className="SettingsPanel">
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={this.state.value || 0}
+            onChange={this.handleInputChanged}
+          />
+          <div className="volume-wrapper">
+            <VolumeBadge volume={this.state.value} />
+            <span className="percentage">
+              {Math.round((this.state.value || 0) * 100)}%
+            </span>
+          </div>
         </div>
-      </div>
+      </Modal>
     );
   }
 
-  private handleAllClicks = (e: MouseEvent): void => {
-    if (this.node.current?.contains(e.target as any)) {
-      return;
-    }
-    // clicked outside
+  private handleClickedOutsideModal = (): void => {
     if (this.props.onClosed) {
       this.props.onClosed(this.state.value);
     }
