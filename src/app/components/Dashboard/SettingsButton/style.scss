@@ -4,9 +4,8 @@
   .SettingsButton {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
-    justify-content: flex-end;
-    z-index: 1;
+    align-items: center;
+    justify-content: center;
 
     .button {
       @include button;

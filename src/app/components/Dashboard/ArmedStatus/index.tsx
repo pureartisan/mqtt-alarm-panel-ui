@@ -21,12 +21,16 @@ interface ArmedStatusState {}
 
 const TriggeredMessage = () => {
   const parts = ConfigService.config.triggered_message?.split(/\r\n|\n|\r/gm) || [];
-  return parts.map((part, index) => (
-    <React.Fragment key={`${index}`}>
-      {index > 0 && <br/>}
-      {part}
+  return (
+    <React.Fragment>
+      {parts.map((part, index) => (
+        <React.Fragment key={`${index}`}>
+          {index > 0 && <br/>}
+          {part}
+        </React.Fragment>
+      ))}
     </React.Fragment>
-  ));
+  );
 };
 
 class ArmedStatusComponent extends React.Component<ArmedStatusProps, ArmedStatusState> {

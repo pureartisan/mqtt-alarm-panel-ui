@@ -23,10 +23,12 @@ class ArmScreenComponent extends React.Component<ArmScreenProps, ArmScreenState>
       <div className="ArmScreen">
         <div className="title">System<br/>Disarmed</div>
         <ArmOptions />
-        <SettingsButton />
-        {ConfigService.config.video_stream?.url && (
-          <VideoButton />
-        )}
+        <div className="action-bar">
+          {ConfigService.config.video_stream?.url && (
+            <VideoButton />
+          )}
+          <SettingsButton />
+        </div>
       </div>
     );
   }
