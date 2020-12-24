@@ -17,17 +17,7 @@
       color: var(--color-mute);
     }
 
-    .action-bar {
-      display: flex;
-      flex-grow: 0;
-      flex-shrink: 0;
-      align-items: center;
-      justify-content: flex-end;
-      width: 100%;
-      padding: 1rem 0;
-      background: var(--main-face-color);
-      box-shadow: 0 0.1rem 0.4rem rgba(0,0,0,0.25), 0 0.5rem 0.5rem rgba(0,0,0,0.22);
-
+    .ActionBar {
       .SettingsButton {
         margin-right: 2rem;
       }
