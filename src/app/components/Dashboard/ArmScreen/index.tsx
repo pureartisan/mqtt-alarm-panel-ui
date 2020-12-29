@@ -22,7 +22,7 @@ class ArmScreenComponent extends React.Component<ArmScreenProps, ArmScreenState>
   render() {
     return (
       <div className="ArmScreen">
-        <div className="title">System<br/>Disarmed</div>
+        <div className="title">System Disarmed</div>
         <ArmOptions />
         <ActionBar>
           {ConfigService.config.video_stream?.url && (
