@@ -95,6 +95,7 @@
     "electron-store": "^6.0.1",
     "lodash": "^4.17.20",
     "mqtt": "^4.2.6",
+    "onoff": "^6.0.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.2",

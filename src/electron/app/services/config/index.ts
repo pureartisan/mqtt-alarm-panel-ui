@@ -31,6 +31,7 @@ interface Config {
   delay_time?: number
   trigger_time?: number
   log_level: LogLevel
+  buzzer_pin?: number
 }
 
 const DEFAULT_CONFIG: Config = {

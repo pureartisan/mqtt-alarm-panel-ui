@@ -10,6 +10,7 @@ export type AlarmArmedState = 'disarmed' |
 export interface UiConfig {
   code: string
   stand_by_screen_delay: number
+  use_buzzer?: boolean
   siren_volume: number
   general_volume: number
   general_volume_max: number
@@ -19,4 +20,9 @@ export interface UiConfig {
     username?: string
     password?: string
   }
+}
+
+export interface BuzzerSound {
+  time: number
+  loop_delay?: number
 }

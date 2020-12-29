@@ -1,7 +1,11 @@
 import UiFx from 'uifx';
 import log from 'electron-log';
+import { ipcRenderer } from 'electron';
+
+import { BuzzerSound } from '@shared/models';
 
 import { ConfigService } from '@app/services/config';
+import { CHANNEL_BUZZER_TRIGGER } from '@shared/constants';
 
 import errorAudio from '@app/assets/audio/error.mp3';
 import clickAudio from '@app/assets/audio/click.mp3';
@@ -22,6 +26,22 @@ class AudioService {
   }
 
   play(sound: SoundEffect, volume?: number): void {
+    if (ConfigService.config.use_buzzer) {
+      this.playBuzzer(sound);
+    } else {
+      this.playAudio(sound, volume);
+    }
+  }
+
+  loop(sound: Sound, volume?: number): HTMLAudioElement | undefined {
+    if (ConfigService.config.use_buzzer) {
+      this.playBuzzer(sound);
+    } else {
+      return this.loopAudio(sound, volume);
+    }
+  }
+
+  playAudio(sound: SoundEffect, volume?: number): void {
     try {
       if (volume === undefined) {
         volume = ConfigService.config.general_volume * ConfigService.config.general_volume_max;
@@ -35,7 +55,7 @@ class AudioService {
     }
   }
 
-  loop(sound: Sound, volume?: number): HTMLAudioElement | undefined {
+  private loopAudio(sound: Sound, volume?: number): HTMLAudioElement | undefined {
     try {
       const audio = this.getAudio(sound);
       if (audio) {
@@ -52,7 +72,19 @@ class AudioService {
     }
   }
 
+  private playBuzzer(sound: SoundEffect | Sound): void {
+    const buzzerSound = this.getBuzzerSound(sound);
+    if (buzzerSound) {
+
+    }
+  }
+
   private loadAudioFiles(): void {
+
+    // no need to load files if buzzer is being used
+    if (ConfigService.config.use_buzzer) {
+      return;
+    }
 
     this.errorFx = new UiFx(
       errorAudio,
@@ -98,6 +130,35 @@ class AudioService {
       default:
         return undefined;
     }
+  }
+
+  private getBuzzerSound(sound: Sound | SoundEffect): BuzzerSound | undefined {
+    switch (sound) {
+      case 'siren':
+        return {
+          time: 2,
+          loop_delay: 1
+        };
+      case 'error':
+        return {
+          time: 1
+        };
+      case 'click':
+        return {
+          time: 0.1
+        };
+      case 'beep':
+        return {
+          time: 1.2
+        };
+      default:
+        return undefined;
+    }
+  }
+
+  private sendBuzzerSound(buzzerSound: BuzzerSound): void {
+    log.debug('Sending buzzer sound to main thread:', buzzerSound);
+    ipcRenderer.send(CHANNEL_BUZZER_TRIGGER, buzzerSound);
   }
 
 }
