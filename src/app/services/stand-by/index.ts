@@ -21,6 +21,7 @@ class StandByService {
   disableStandBy(): void {
     this.standBy = false;
     disableStandBy();
+    this.handleAnyUserInteraction();
   }
 
   listenToUserInteractions(): void {
