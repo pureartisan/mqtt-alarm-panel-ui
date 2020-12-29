@@ -22,3 +22,33 @@
     }
   }
 }
+
+.App {
+  &.armed-status-triggered {
+    .Dashboard {
+      .NavBar {
+        animation: navbar-triggered-animated-background 200ms infinite alternate;
+      }
+    }
+  }
+
+  &.armed-status-pending {
+    &.prev-armed-status-armed_home,
+    &.prev-armed-status-armed_away {
+      .Dashboard {
+        .NavBar {
+          animation: navbar-triggered-animated-background 1s infinite alternate;
+        }
+      }
+    }
+  }
+}
+
+@keyframes navbar-triggered-animated-background {
+  from {
+      background-color: var(--main-face-color);
+  }
+  to {
+      background-color: var(--color-danger);
+  }
+}

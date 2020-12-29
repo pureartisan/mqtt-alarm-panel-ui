@@ -43,7 +43,11 @@ class AppComponent extends React.Component<AppProps, AppState> {
 
   render() {
     return (
-      <div className={`App env-${Info.env}`}>
+      <div
+        className={
+          `App env-${Info.env} armed-status-${this.props.armedStatus} prev-armed-status-${this.props.prevStatus}`
+        }
+      >
         {this.props.standBy ? (
           <StandByScreen />
         ) : (
