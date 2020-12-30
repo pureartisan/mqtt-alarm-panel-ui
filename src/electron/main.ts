@@ -4,12 +4,14 @@ import url from 'url';
 import log from 'electron-log';
 
 import { IS_PI } from '@electron/utils/device';
+import { Info } from '@electron/info';
 
 let mainWindow: BrowserWindow | null;
 
 const DEV_MODE = process.env.NODE_ENV === 'development';
 
 function createWindow(): void {
+  log.info('Version [Main]:', `${Info.name} ${Info.version}`);
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   log.debug(`Screen size: ${width}x${height}`);

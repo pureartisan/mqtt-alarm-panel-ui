@@ -88,11 +88,12 @@ class BuzzerService {
     this.writeToBuzzerPin(0);
   }
 
-  private writeToBuzzerPin(value: BinaryValue): void {
+  private writeToBuzzerPin(value: BinaryValue | boolean): void {
+    const binaryValue = value ? 1 : 0;
     if (IS_PI) {
-      this.buzzer?.writeSync(value);
+      this.buzzer?.writeSync(binaryValue);
     } else {
-      log.debug('[MOCK] Setting buzzer pin to:', value);
+      log.debug('[MOCK] Setting buzzer to:', binaryValue);
     }
   }
 
