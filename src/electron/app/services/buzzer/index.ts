@@ -92,6 +92,7 @@ class BuzzerService {
     const binaryValue = value ? 1 : 0;
     if (IS_PI) {
       this.buzzer?.writeSync(binaryValue);
+      log.debug('Setting buzzer to:', binaryValue);
     } else {
       log.debug('[MOCK] Setting buzzer to:', binaryValue);
     }

@@ -145,7 +145,7 @@ class AudioService {
         };
       case 'click':
         return {
-          time: 0.1
+          time: 0.5
         };
       case 'beep':
         return {
