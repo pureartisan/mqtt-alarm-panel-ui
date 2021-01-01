@@ -37,7 +37,7 @@ class MqttService {
   private connectToBroker(): void {
     const brokerUrl = `mqtt://${ConfigService.config.mqtt.host}:${ConfigService.config.mqtt.port}`;
     const opts: IClientOptions = {
-      clientId: ConfigService.config.mqtt.client_id
+      clientId: this.getUniqueClientId()
     };
     if (ConfigService.config.mqtt.username) {
       opts.username = ConfigService.config.mqtt.username;
@@ -100,6 +100,11 @@ class MqttService {
       log.debug('Reconnecting to MQTT broker...');
       this.mqttClient?.reconnect();
     }, RECONNECT_DELAY);
+  }
+
+  private getUniqueClientId(): string {
+    const uid = Math.random().toString(16).substr(2, 8);
+    return `${ConfigService.config.mqtt.client_id}_${uid}`;
   }
 }
 
