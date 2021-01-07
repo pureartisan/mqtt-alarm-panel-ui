@@ -98,7 +98,7 @@ class MqttService {
     }
     this.reconnectTimeout = setTimeout(() => {
       log.debug('Reconnecting to MQTT broker...');
-      this.mqttClient?.reconnect();
+      this.connectToBroker();
     }, RECONNECT_DELAY);
   }
 
