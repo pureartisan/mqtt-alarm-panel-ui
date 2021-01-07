@@ -2,7 +2,13 @@ import { ipcMain, BrowserWindow } from 'electron';
 import log from 'electron-log';
 import { MqttClient, connect as mqttConnect, IClientOptions } from 'mqtt';
 
-import { CHANNEL_ALARM_STATE_CHANGED, CHANNEL_SEND_COMMAND, CHANNEL_GET_INITIAL_ALARAM_STATE } from '@shared/constants';
+import {
+  CHANNEL_ALARM_STATE_CHANGED,
+  CHANNEL_SEND_COMMAND,
+  CHANNEL_GET_INITIAL_ALARAM_STATE,
+  CHANNEL_CONNECTION_STATUS,
+  CHANNEL_GET_CONNECTION_STATUS
+} from '@shared/constants';
 import { Command, AlarmArmedState } from '@shared/models';
 
 import { ConfigService } from '@electron/services/config';
@@ -32,6 +38,9 @@ class MqttService {
         this.handleStateChanged(this.lastAlarmState);
       }
     });
+    ipcMain.on(CHANNEL_GET_CONNECTION_STATUS, (event) => {
+      event.returnValue = Boolean(this.mqttClient?.connected);
+    });
   }
 
   private connectToBroker(): void {
@@ -46,12 +55,17 @@ class MqttService {
 
     log.debug('Connecting to MQTT broker on', brokerUrl, (opts.username ? 'with auth' : 'NO auth'));
     this.mqttClient = mqttConnect(brokerUrl, opts);
-    this.mqttClient.on('connect', () => this.subscribeToStateTopic());
+    this.mqttClient.on('connect', () => {
+      this.subscribeToStateTopic();
+      this.sendConnectionStatusToRenderer(true);
+    });
     this.mqttClient.on('message', (t, msg) => this.handleIncomingMessage(t, msg));
     this.mqttClient.on('error', (err) => console.error(err));
     this.mqttClient.on('close', () => {
       log.debug("MQTT connection closed");
       this.mqttClient?.end();
+      this.mqttClient = undefined;
+      this.sendConnectionStatusToRenderer(false);
       this.reconnectToMqttBrokerWithDelay();
     });
   }
@@ -89,7 +103,7 @@ class MqttService {
     }
     // remember the last state
     this.lastAlarmState = state;
-    this.mainWindow?.webContents.send(CHANNEL_ALARM_STATE_CHANGED, state, data);
+    this.sendDataToRenderer(CHANNEL_ALARM_STATE_CHANGED, state, data);
   }
 
   private reconnectToMqttBrokerWithDelay(): void {
@@ -105,6 +119,14 @@ class MqttService {
   private getUniqueClientId(): string {
     const uid = Math.random().toString(16).substr(2, 8);
     return `${ConfigService.config.mqtt.client_id}_${uid}`;
+  }
+
+  private sendDataToRenderer(channel: string, ...args: any[]): void {
+    this.mainWindow?.webContents.send(channel, ...args);
+  }
+
+  private sendConnectionStatusToRenderer(status: boolean): void {
+    this.sendDataToRenderer(CHANNEL_CONNECTION_STATUS, status);
   }
 }
 

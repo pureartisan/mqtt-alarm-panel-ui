@@ -11,6 +11,16 @@
   background: radial-gradient(ellipse at center,  #0a2e38  0%, #000000 70%);
   background-size: 100%;
 
+  .disconnected {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 1rem;
+    height: 1rem;
+    background: var(--color-danger);
+    border-radius: 100%;
+  }
+
   .ShieldBadge {
     position: absolute;
     bottom: 0;

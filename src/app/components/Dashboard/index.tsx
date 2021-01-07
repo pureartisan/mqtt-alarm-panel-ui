@@ -13,6 +13,7 @@ import './style.scss';
 
 interface DashboardProps {
   armed?: ArmedStatus;
+  connected?: boolean;
 }
 
 class DashboardComponent extends React.Component<DashboardProps> {
@@ -21,10 +22,14 @@ class DashboardComponent extends React.Component<DashboardProps> {
     return (
       <div
         className={classnames("Dashboard", {
+          'is-armed': this.props.armed,
           [`armed-${this.props.armed}`]: this.props.armed
         })}
       >
         <NavBar />
+        {!this.props.connected && (
+          <div className="disconnected"></div>
+        )}
         {this.props.armed ? (
           <DisarmScreen />
         ) : (
@@ -36,7 +41,8 @@ class DashboardComponent extends React.Component<DashboardProps> {
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<DashboardProps>): Partial<DashboardProps> => ({
-  armed: state.armed.status
+  armed: state.armed.status,
+  connected: state.connection.status
 });
 
 export const Dashboard = connect(mapStateToProps)(DashboardComponent);

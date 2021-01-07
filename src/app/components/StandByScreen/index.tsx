@@ -16,6 +16,7 @@ import './style.scss';
 
 interface StandByScreenProps {
   armed?: ArmedStatus;
+  connected?: boolean;
 }
 
 class StandByScreenComponent extends React.Component<StandByScreenProps> {
@@ -28,6 +29,9 @@ class StandByScreenComponent extends React.Component<StandByScreenProps> {
         })}
         onClick={this.handleStandByClick}
       >
+        {!this.props.connected && (
+          <div className="disconnected"></div>
+        )}
         <DateTime />
         {this.props.armed && (
           <ShieldBadge animation={false} />
@@ -43,7 +47,8 @@ class StandByScreenComponent extends React.Component<StandByScreenProps> {
 }
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<StandByScreenProps>): Partial<StandByScreenProps> => ({
-  armed: state.armed.status
+  armed: state.armed.status,
+  connected: state.connection.status
 });
 
 export const StandByScreen = connect(mapStateToProps)(StandByScreenComponent);
