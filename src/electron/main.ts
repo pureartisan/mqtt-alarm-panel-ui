@@ -1,6 +1,4 @@
 import { app, BrowserWindow, screen } from 'electron';
-import path from 'path';
-import url from 'url';
 import log from 'electron-log';
 
 import { IS_PI } from '@electron/utils/device';
@@ -21,8 +19,10 @@ function createWindow(): void {
     height,
     show: false, // hide by default (until we are ready)
     webPreferences: {
+      // https://stackoverflow.com/questions/55093700/electron-5-0-0-uncaught-referenceerror-require-is-not-defined#66604710
       nodeIntegration: true,
-      webSecurity: false
+      contextIsolation: false,
+      enableRemoteModule: true,
     }
   });
 
@@ -32,11 +32,7 @@ function createWindow(): void {
     entryUrl = 'http://localhost:4000';
     mainWindow.webContents.openDevTools();
   } else {
-    entryUrl = url.format({
-      pathname: path.join(__dirname, 'index.html'),
-      protocol: 'file:',
-      slashes: true
-    });
+    entryUrl = `file://${__dirname}/index.html`;
   }
 
   mainWindow.loadURL(entryUrl);

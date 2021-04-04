@@ -11,17 +11,23 @@ import { StandByService } from '@app/services/stand-by';
 import { ShieldBadge } from '@app/components/badges/ShieldBadge';
 
 import { DateTime } from './DateTime';
+import { NoiseGenerator } from './NoiseGenerator';
 
 import './style.scss';
 
 interface StandByScreenProps {
   armed?: ArmedStatus;
   connected?: boolean;
+  date?: Date
 }
 
 class StandByScreenComponent extends React.Component<StandByScreenProps> {
 
   render() {
+    // show noise between 2am and 10am
+    const currentHour = this.props?.date?.getHours() || 0;
+    const showNoise = currentHour >= 2 && currentHour <= 10;
+
     return (
       <div
         className={classnames("StandByScreen", {
@@ -32,9 +38,16 @@ class StandByScreenComponent extends React.Component<StandByScreenProps> {
         {!this.props.connected && (
           <div className="disconnected"></div>
         )}
-        <DateTime />
-        {this.props.armed && (
-          <ShieldBadge animation={false} />
+        {showNoise && (
+          <NoiseGenerator />
+        )}
+        {!showNoise && (
+          <>
+            <DateTime />
+            {this.props.armed && (
+              <ShieldBadge animation={false} />
+            )}
+          </>
         )}
       </div>
     );
@@ -48,7 +61,8 @@ class StandByScreenComponent extends React.Component<StandByScreenProps> {
 
 const mapStateToProps = (state: ReduxState, ownProps: Partial<StandByScreenProps>): Partial<StandByScreenProps> => ({
   armed: state.armed.status,
-  connected: state.connection.status
+  connected: state.connection.status,
+  date: state.time.now
 });
 
 export const StandByScreen = connect(mapStateToProps)(StandByScreenComponent);

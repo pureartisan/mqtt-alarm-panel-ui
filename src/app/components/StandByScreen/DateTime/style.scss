@@ -1,15 +1,33 @@
-.DateTime {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+.StandByScreen {
+  $duration: 10s;
 
-  .Clock {
-    margin-bottom: 0.5em;
+  .DateTime {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    animation-name: dateBounce;
+    animation-duration: $duration;
+    animation-direction: alternate;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    .Clock {
+      margin-bottom: 0.5em;
+    }
+
+    .Date {
+      margin-top: 50%;
+    }
   }
+}
 
-  .Date {
-    position: absolute;
-    bottom: 2em;
+@keyframes dateBounce {
+  from {
+    transform: translateY(-40vh);
+  }
+  to {
+    transform: translateY(20vh);
   }
 }
