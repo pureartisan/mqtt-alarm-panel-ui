@@ -24,9 +24,9 @@ interface StandByScreenProps {
 class StandByScreenComponent extends React.Component<StandByScreenProps> {
 
   render() {
-    // show noise between 2am and 10am
+    // show noise between 2am and 8am
     const currentHour = this.props?.date?.getHours() || 0;
-    const showNoise = currentHour >= 2 && currentHour <= 10;
+    const showNoise = currentHour >= 2 && currentHour <= 8;
 
     return (
       <div
