@@ -9,7 +9,8 @@ interface NoiseGeneratorProps {
 }
 
 interface NoiseGeneratorState {
-  noiseImage?: string
+  noiseImage?: string;
+  noisePosition?: string;
 }
 
 class NoiseGenerator extends React.Component<NoiseGeneratorProps, NoiseGeneratorState> {
@@ -43,6 +44,7 @@ class NoiseGenerator extends React.Component<NoiseGeneratorProps, NoiseGenerator
       <div
         className={`NoiseGenerator mode-${this.props.mode}`}
         style={{
+          backgroundPosition: this.state.noisePosition,
           backgroundImage: this.state.noiseImage
         }}
       >
@@ -67,7 +69,11 @@ class NoiseGenerator extends React.Component<NoiseGeneratorProps, NoiseGenerator
         return;
       }
       const noiseImage = this.buildNoiseImage();
-      this.setState({ noiseImage });
+      const noisePosition = this.getRandomPosition();
+      this.setState({
+        noiseImage,
+        noisePosition
+      });
       this.generateNoise();
     }, 1);
   }
@@ -93,12 +99,16 @@ class NoiseGenerator extends React.Component<NoiseGeneratorProps, NoiseGenerator
   }
 
   private fillRandomPixel(ctx: any, x: number, y: number): void {
-    ctx.fillStyle = `rgb(${this.getRandomColor()},${this.getRandomColor()},${this.getRandomColor()})`;
+    ctx.fillStyle = `rgb(${this.getRandomNumber(255)},${this.getRandomNumber(255)},${this.getRandomNumber(255)})`;
     ctx.fillRect(x, y, 1, 1);
   }
 
-  private getRandomColor(): number {
-    return Math.round(Math.random() * 255);
+  private getRandomPosition(): string {
+    return `${this.getRandomNumber(100)}% ${this.getRandomNumber(100)}%`;
+  }
+
+  private getRandomNumber(max: number): number {
+    return Math.round(Math.random() * max);
   }
 
 }
